@@ -3,7 +3,7 @@ A bare-bones vCard web app -- by [@aaronrich](https://github.com/aaronrich) and 
 
 ## Dependencies
 - Bundler
-- Sinatra
+- [Sinatra](http://www.sinatrarb.com/)
 
 ## Get it running locally
 	gem install bundler
