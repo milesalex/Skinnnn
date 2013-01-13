@@ -4,6 +4,7 @@ require "omniauth-twitter"
 require "dm-core" 
 require "dm-sqlite-adapter" 
 require "dm-migrations"
+require "json"
 require "sinatra"
 
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/database.db")
@@ -38,13 +39,22 @@ get '/' do
     # The following line just tests to see that it's working.
     #   If you've logged in your first user, '/' should load: "1 ... 1";
     #   You can then remove the following line, start using view templates, etc.
-    current_user.id.to_s + " ... " + session[:user_id].to_s 
+
+    current_user.id.to_s + " ... " + session[:user_id].to_s
+
+    # @current_user.id.to_s
+
+    # content_type :json
+    #{ :key1 => 'value1', :key2 => 'value2' }.to_json
+    # File.read(File.join('public', 'index.html'))
+
   else
-    '<a href="/sign_up">create an account</a> or <a href="/sign_in">sign in with Twitter</a>'
+    
     # if you replace the above line with the following line, 
     #   the user gets signed in automatically. Could be useful. 
     #   Could also break user expectations.
-    # redirect '/auth/twitter'
+    redirect '/auth/twitter'
+    #File.read(File.join('public', 'index.html'))
   end
 end
 

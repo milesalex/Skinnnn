@@ -17,6 +17,7 @@ GEM
     do_sqlite3 (0.10.11)
       data_objects (= 0.10.11)
     hashie (1.2.0)
+    json (1.7.5)
     multi_json (1.5.0)
     oauth (0.4.7)
     omniauth (1.1.1)
@@ -44,6 +45,7 @@ DEPENDENCIES
   dm-core
   dm-migrations
   dm-sqlite-adapter
+  json
   omniauth
   omniauth-twitter
   sinatra
