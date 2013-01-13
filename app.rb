@@ -5,10 +5,13 @@ require "dm-core"
 require "dm-sqlite-adapter" 
 require "dm-migrations"
 require "json"
+require "haml"
 require "sinatra"
 
+# Define DB location
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/database.db")
 
+# User Class
 class User
   include DataMapper::Resource
   property :id,         Serial
@@ -17,6 +20,7 @@ class User
   property :nickname,   String
   property :created_at, DateTime
 end
+
 
 DataMapper.finalize
 DataMapper.auto_upgrade!
@@ -40,21 +44,17 @@ get '/' do
     #   If you've logged in your first user, '/' should load: "1 ... 1";
     #   You can then remove the following line, start using view templates, etc.
 
-    current_user.id.to_s + " ... " + session[:user_id].to_s
+    # current_user.id.to_s + " ... " + session[:user_id].to_s 
 
-    # @current_user.id.to_s
-
-    # content_type :json
-    #{ :key1 => 'value1', :key2 => 'value2' }.to_json
-    # File.read(File.join('public', 'index.html'))
+    haml :index
 
   else
     
     # if you replace the above line with the following line, 
     #   the user gets signed in automatically. Could be useful. 
     #   Could also break user expectations.
-    redirect '/auth/twitter'
-    #File.read(File.join('public', 'index.html'))
+    '<a id="sign_up" href="/sign_up">create an account</a> or <a id="sign_in" href="/sign_in">sign in with Twitter</a>'
+    #redirect '/auth/twitter'
   end
 end
 
@@ -67,6 +67,11 @@ get '/auth/:name/callback' do
     :created_at => Time.now })
   session[:user_id] = user.id
   redirect '/'
+end
+
+get '/:nickname' do 
+  @user = User.get(:nickname => params[:nickname])  
+  haml :user
 end
 
 # any of the following routes should work to sign the user in: 
@@ -84,11 +89,4 @@ end
     redirect '/'
   end
 end
-
-
-# get '/' do
-#   login_required
-#   "hello #{user}"
-#   File.read(File.join('public', 'index.html'))
-# end
 
