@@ -1,6 +1,5 @@
 source "http://rubygems.org"
 
-
 gem "omniauth" 
 gem "omniauth-twitter" 
 gem "dm-core" 

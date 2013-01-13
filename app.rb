@@ -7,11 +7,8 @@ require "dm-migrations"
 require "json"
 require "haml"
 require "sinatra"
-
-# Define DB location
 DataMapper.setup(:default, "sqlite3://#{Dir.pwd}/database.db")
 
-# User Class
 class User
   include DataMapper::Resource
   property :id,         Serial
@@ -20,7 +17,6 @@ class User
   property :nickname,   String
   property :created_at, DateTime
 end
-
 
 DataMapper.finalize
 DataMapper.auto_upgrade!
@@ -43,18 +39,15 @@ get '/' do
     # The following line just tests to see that it's working.
     #   If you've logged in your first user, '/' should load: "1 ... 1";
     #   You can then remove the following line, start using view templates, etc.
-
-    # current_user.id.to_s + " ... " + session[:user_id].to_s 
-
+    #current_user.id.to_s + " ... " + session[:user_id].to_s
+    @users = User.all
     haml :index
-
   else
-    
+    '<a href="/sign_up">create an account</a> or <a href="/sign_in">sign in with Twitter</a>'
     # if you replace the above line with the following line, 
     #   the user gets signed in automatically. Could be useful. 
     #   Could also break user expectations.
-    '<a id="sign_up" href="/sign_up">create an account</a> or <a id="sign_in" href="/sign_in">sign in with Twitter</a>'
-    #redirect '/auth/twitter'
+    # redirect '/auth/twitter'
   end
 end
 
@@ -67,11 +60,6 @@ get '/auth/:name/callback' do
     :created_at => Time.now })
   session[:user_id] = user.id
   redirect '/'
-end
-
-get '/:nickname' do 
-  @user = User.get(:nickname => params[:nickname])  
-  haml :user
 end
 
 # any of the following routes should work to sign the user in: 
@@ -90,3 +78,8 @@ end
   end
 end
 
+get '/:nickname' do
+  # Cant seem to get this working
+  @user = User.first(:nickname => params[:nickname])
+  haml :user
+end
