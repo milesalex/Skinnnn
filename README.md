@@ -13,5 +13,9 @@ A bare-bones vCard web app -- by [@aaronrich](https://github.com/aaronrich) and 
 - omniauth-twitter
 
 ## Get it running locally
+	# Install dependencies
 	gem install bundler
 	bundle install
+	
+	# Run local server
+	ruby app.rb
