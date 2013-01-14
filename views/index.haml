@@ -1,3 +1,8 @@
-- @users.each do |user|
+- if current_user
+	%a{:href => 'sign_out'} Sign Out
 	%p 
-		= user.nickname
+		Hello 
+		%b
+			= @current_user.nickname
+- else
+	%a{:href => 'sign_in'} Sign In

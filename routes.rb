@@ -4,15 +4,11 @@ get '/' do
     #   If you've logged in your first user, '/' should load: "1 ... 1";
     #   You can then remove the following line, start using view templates, etc.
     #current_user.id.to_s + " ... " + session[:user_id].to_s
-    @users = User.all
-    haml :index
-  else
-    '<a href="/sign_up">create an account</a> or <a href="/sign_in">sign in with Twitter</a>'
-    # if you replace the above line with the following line, 
-    #   the user gets signed in automatically. Could be useful. 
-    #   Could also break user expectations.
-    # redirect '/auth/twitter'
+    # @users = User.all
+    @current_user = current_user
   end
+  # Render haml index template
+  haml :index
 end
 
 get '/auth/:name/callback' do
