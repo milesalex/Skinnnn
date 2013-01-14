@@ -1,2 +1,15 @@
-%p 
-	= @user.nickname
+%h2
+	= @user.name
+%ul
+	%li 
+		User id: 
+		%strong 
+			= @user.id
+	%li
+		User nickname:
+		%strong
+			= @user.nickname
+	%li
+		User name:
+		%strong
+			= @user.name

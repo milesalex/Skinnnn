@@ -39,6 +39,14 @@ end
 end
 
 get '/:nickname' do
+  if current_user
+    # The following line just tests to see that it's working.
+    #   If you've logged in your first user, '/' should load: "1 ... 1";
+    #   You can then remove the following line, start using view templates, etc.
+    #current_user.id.to_s + " ... " + session[:user_id].to_s
+    # @users = User.all
+    @current_user = current_user
+  end
   # Cant seem to get this working
   @user = User.first(:nickname => params[:nickname])
   haml :user

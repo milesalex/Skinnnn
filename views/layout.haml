@@ -7,7 +7,15 @@
     #wrapper  
       #header  
         %h1 Resumator
-        %p a simple vcard app
-        %hr
-      #content  
+        %a{:href => '/'} Home
+        %span • 
+        - if current_user
+          %a{:href => 'sign_out'} Sign Out
+          %span • 
+          Hello
+          %a{:href => @current_user.nickname} 
+            = @current_user.nickname
+        - else
+          %a{:href => 'sign_in'} Sign In
+      #content
         =yield
