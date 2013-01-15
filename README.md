@@ -2,15 +2,15 @@
 A bare-bones vCard web app -- by [@aaronrich](https://github.com/aaronrich) and [@milesalex](https://github.com/milesalex)
 
 ## Dependencies
-- Bundler
-- [Sinatra](http://www.sinatrarb.com/)
 - dm-core
 - dm-migrations
+- dm-postgres-adapter
 - dm-sqlite-adapter
 - haml
 - json
 - omniauth
 - omniauth-twitter
+- sinatra
 
 ## Get it running locally
 	# Install dependencies
