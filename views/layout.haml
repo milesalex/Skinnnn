@@ -9,13 +9,15 @@
         %h1 Resumator
         %a{:href => '/'} Home
         %span • 
+        %a{:href => '/people/'} People
+        %span • 
         - if current_user
-          %a{:href => 'sign_out'} Sign Out
+          %a{:href => '/sign_out/'} Sign Out
           %span • 
           Hello
-          %a{:href => @current_user.nickname} 
+          %a{:href => '/' + @current_user.nickname}
             = @current_user.nickname
         - else
-          %a{:href => 'sign_in'} Sign In
+          %a{:href => '/sign_in/'} Sign In
       #content
         =yield

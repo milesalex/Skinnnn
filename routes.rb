@@ -11,6 +11,11 @@ get '/' do
   haml :index
 end
 
+get '/people/' do
+  @users = User.all
+  haml :index
+end
+
 get '/auth/:name/callback' do
   auth = request.env["omniauth.auth"]
   user = User.first_or_create({ :uid => auth["uid"]}, {
@@ -39,6 +44,7 @@ end
 end
 
 get '/:nickname' do
+
   if current_user
     # The following line just tests to see that it's working.
     #   If you've logged in your first user, '/' should load: "1 ... 1";
@@ -50,3 +56,8 @@ get '/:nickname' do
   @user = User.first(:nickname => params[:nickname])
   haml :user
 end
+
+
+
+
+
