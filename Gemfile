@@ -9,3 +9,11 @@ gem "dm-postgres-adapter"
 gem "json"
 gem "haml"
 gem "sinatra"
+
+group :development do
+  gem 'dm-sqlite-adapter'
+end
+
+group :production do
+  gem 'dm-postgres-adapter'
+end
