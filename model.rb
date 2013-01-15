@@ -14,11 +14,11 @@ end
 
 class Link
 include DataMapper::Resource
-	property :id,					Serial
-	property :name,				String, :required => true
-	property :url,				String, :required => true
+  property :id,         Serial
+  property :name,       String, :required => true
+  property :url,        String, :required => true
 
-	belongs_to :user
+  belongs_to :user
 
 end
 
