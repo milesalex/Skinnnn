@@ -35,7 +35,8 @@
 			uid: null,
 			name: null,
 			nickname: null,
-			email: null
+			email: null,
+			created_at: null
 		}
 	});
 
@@ -47,7 +48,7 @@
 		}
 	});
 
-	
+
 
 
 
