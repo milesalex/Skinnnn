@@ -18,6 +18,7 @@ end
 
 get '/auth/:name/callback' do
   auth = request.env["omniauth.auth"]
+  puts auth
   user = User.first_or_create({ :uid => auth["uid"]}, {
     :uid => auth["uid"],
     :nickname => auth["info"]["nickname"], 
@@ -28,7 +29,7 @@ get '/auth/:name/callback' do
 end
 
 # any of the following routes should work to sign the user in: 
-#   /sign_up, /signup, /sign_in, /signin, /log_in, /login
+# /sign_up, /signup, /sign_in, /signin, /log_in, /login
 ["/sign_in/?", "/signin/?", "/log_in/?", "/login/?", "/sign_up/?", "/signup/?"].each do |path|
   get path do
     redirect '/auth/twitter'
@@ -44,15 +45,9 @@ end
 end
 
 get '/:nickname' do
-
   if current_user
-    # The following line just tests to see that it's working.
-    #   If you've logged in your first user, '/' should load: "1 ... 1";
-    #   You can then remove the following line, start using view templates, etc.
-    #current_user.id.to_s + " ... " + session[:user_id].to_s
     @current_user = current_user
   end
-  # Cant seem to get this working
   @user = User.first(:nickname => params[:nickname])
   haml :user
 end
