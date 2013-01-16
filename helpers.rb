@@ -23,5 +23,10 @@ helpers do
       redirect "/"
     end  
   end
-  
+
+  # Transforms the request body into JSON.
+  def json_data
+    JSON.parse(request.body.read)
+  end
+    
 end

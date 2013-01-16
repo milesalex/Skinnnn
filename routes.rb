@@ -1,20 +1,7 @@
-get '/' do
-  if current_user
-    # The following line just tests to see that it's working.
-    #   If you've logged in your first user, '/' should load: "1 ... 1";
-    #   You can then remove the following line, start using view templates, etc.
-    #current_user.id.to_s + " ... " + session[:user_id].to_s
-    # @users = User.all
-    @current_user = current_user
-  end
-  # Render haml index template
-  haml :index
-end
+# API ROUTES
 
-get '/people/' do
-  @users = User.all
-  halt 404 if @users.nil?
-  haml :people
+before '/api*' do
+  content_type 'application/json'
 end
 
 get '/api/user/:id' do
@@ -22,6 +9,24 @@ get '/api/user/:id' do
   user = User.get(params[:id])
   user.to_json
 end
+
+put '/api/user/:id' do 
+  puts 'PUT'
+  user = User.get(params[:id])
+  user.update(json_data)
+  user.to_json
+end
+
+get '/api/auth/logged_in' do
+  if current_user
+    status 200
+  else
+    status 400
+  end
+end
+
+
+## AUTHENTICATION
 
 get '/auth/:name/callback' do
   auth = request.env["omniauth.auth"]
@@ -36,7 +41,6 @@ get '/auth/:name/callback' do
 end
 
 # any of the following routes should work to sign the user in: 
-# /sign_up, /signup, /sign_in, /signin, /log_in, /login
 ["/sign_in/?", "/signin/?", "/log_in/?", "/login/?", "/sign_up/?", "/signup/?"].each do |path|
   get path do
     redirect '/auth/twitter'
@@ -49,6 +53,28 @@ end
     session[:user_id] = nil
     redirect '/'
   end
+end
+
+
+
+## CONTENT PAGES
+
+get '/' do
+  if current_user
+    # The following line just tests to see that it's working.
+    #   If you've logged in your first user, '/' should load: "1 ... 1";
+    #   You can then remove the following line, start using view templates, etc.
+    #current_user.id.to_s + " ... " + session[:user_id].to_s
+    # @users = User.all
+    @current_user = current_user
+  end
+  haml :index
+end
+
+get '/people/' do
+  @users = User.all
+  halt 404 if @users.nil?
+  haml :people
 end
 
 get '/:nickname' do

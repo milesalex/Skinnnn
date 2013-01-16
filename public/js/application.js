@@ -31,16 +31,10 @@
 	// User Model
 	var UserModel = Backbone.Model.extend({
 		urlRoot: '/api/user',
-		defaults: {
-			uid: null,
-			name: null,
-			nickname: null,
-			email: null,
-			created_at: null
-		}
+		defaults: {}
 	});
 
-	var user = new UserModel({id: 5});
+	var user = new UserModel({id: 8});
 
 	user.fetch({
 		success: function (user){
@@ -48,9 +42,57 @@
 		}
 	});
 
+	// user.save({email: 'howdy@alexmilesdesign.com'}, {
+	// success: function (model) {
+	// console.log(user.toJSON());
+	// }
+	// });
+
+
+	// ------------------------------------------------
+
+
+	// Search View
+	var SearchView = Backbone.View.extend({
+		initialize: function(){
+			this.render();
+		},
+		render: function(){
+			// Compile the template using underscore
+			var template = _.template( $("#search_template").html(), {});
+			// Load the compiled HTML into the Backbone "el"
+			this.$el.html( template );
+		},
+		events: {
+			"click input[type=button]" : "doSearch"
+		},
+		doSearch: function(e){
+			alert("Search for " + $('#search_input').val());
+		}
+	});
+
+	var search_view = new SearchView({ el: $("#search_container") });
 
 
 
+	// ------------------------------------------------
+
+
+
+	// App Router
+	var AppRouter = Backbone.Router.extend({
+		routes: {
+			"*actions" : "defaultRoute"
+		}
+	});
+
+	var appRouter = new AppRouter();
+
+	appRouter.on('route:defaultRoute', function(actions){
+		alert('action ' + actions);
+	});
+
+	Backbone.history.start();
 
 
 
