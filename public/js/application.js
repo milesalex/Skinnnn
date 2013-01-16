@@ -30,12 +30,25 @@
 
 	// User Model
 	var UserModel = Backbone.Model.extend({
-		urlRoot: '/user',
+		urlRoot: '/api/user',
 		defaults: {
-			name: '',
-			email: ''
+			uid: null,
+			name: null,
+			nickname: null,
+			email: null
 		}
 	});
+
+	var user = new UserModel({id: 5});
+
+	user.fetch({
+		success: function (user){
+			console.log(user.toJSON());
+		}
+	});
+
+	
+
 
 
 

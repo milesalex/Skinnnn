@@ -9,6 +9,13 @@ class User
   property :email,      String
   property :created_at, DateTime
   has n, :links
+
+  def to_hash
+    Hash[*instance_variables.map { |v|
+      [v.to_sym, instance_variable_get(v)]
+    }.flatten]
+  end
+  
 end
 
 class Link

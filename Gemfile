@@ -4,7 +4,7 @@ gem "omniauth"
 gem "omniauth-twitter" 
 gem "dm-core"
 gem "dm-migrations"
-gem "json"
+gem "dm-serializer"
 gem "haml"
 gem "sinatra"
 
