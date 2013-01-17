@@ -3,50 +3,39 @@
 (function($){
 
 
-	// Link Model
-	var LinkModel = Backbone.Model.extend({
-		defaults: {
-			title: null,
-			url: null,
-			order: 0
-		},
-		initialize: function(){
-			//alert("You created a link");
-			this.on("change:title", function(model){
-				var title = model.get("title");
-				//alert("Changed the title to " + title);
-			});
-		}
-	});
-
-	var link = new LinkModel({ title: "Dribbble" });
-	link.set({title: 'Twitter'});
-
-	
-
-	// ----------------------------------------------
-
-
-
-	// User Model
+	// User Model - GET User.find(:id)
 	var UserModel = Backbone.Model.extend({
 		urlRoot: '/api/user',
 		defaults: {}
 	});
 
-	var user = new UserModel({id: 8});
-
-	user.fetch({
-		success: function (user){
-			console.log(user.toJSON());
-		}
+	// User Collection - GET User.all
+	var UserCollection = Backbone.Collection.extend({
+		model: UserModel,
+		url: '/api/users'
 	});
 
-	// user.save({email: 'howdy@alexmilesdesign.com'}, {
-	// success: function (model) {
-	// console.log(user.toJSON());
-	// }
-	// });
+	// List Users
+	var ListUsers = Backbone.View.extend({
+		el: $('#people'),
+		template: _.template($('#people_template').html()),
+		initialize: function(){
+			_.bindAll(this);
+			this.collection = new UserCollection();
+			this.collection.bind('all', this.render, this);
+			this.collection.fetch();
+		},
+		render: function(){
+			console.log(this.collection);
+			var html = this.template({collection: this.collection});
+			this.$el.html(html);
+			return this;
+		}
+
+	});
+
+	//var users = new UserCollection();
+	var listUsers = new ListUsers();
 
 
 	// ------------------------------------------------
@@ -67,11 +56,12 @@
 			"click input[type=button]" : "doSearch"
 		},
 		doSearch: function(e){
-			alert("Search for " + $('#search_input').val());
+			//alert("Search for " + $('#search_input').val());
 		}
 	});
 
 	var search_view = new SearchView({ el: $("#search_container") });
+
 
 
 
@@ -82,14 +72,27 @@
 	// App Router
 	var AppRouter = Backbone.Router.extend({
 		routes: {
-			"*actions" : "defaultRoute"
+			"/about/" : "showAbout",
+			"*actions" : "defaultRoute",
+			"/:nickname" : "getUser",
+			"/sign_in/" : "signIn",
+			"/sign_out/" : "signOut"
+		},
+		showAbout: function(e){
+			e.preventDefault();
+			console.log('about');
+			this.navigate("about", true);
 		}
 	});
 
 	var appRouter = new AppRouter();
 
 	appRouter.on('route:defaultRoute', function(actions){
-		alert('action ' + actions);
+		
+	});
+
+	appRouter.on('route:getUser', function(nickname){
+		//alert('viewing ' + nickname);
 	});
 
 	Backbone.history.start();

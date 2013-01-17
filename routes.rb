@@ -4,8 +4,12 @@ before '/api*' do
   content_type 'application/json'
 end
 
+get '/api/users' do
+  users = User.all
+  users.to_json
+end
+
 get '/api/user/:id' do
-  content_type :json
   user = User.get(params[:id])
   user.to_json
 end
@@ -71,20 +75,20 @@ get '/' do
   haml :index
 end
 
-get '/people/' do
-  @users = User.all
-  halt 404 if @users.nil?
-  haml :people
-end
+# get '/people/' do
+#   @users = User.all
+#   halt 404 if @users.nil?
+#   haml :people
+# end
 
-get '/:nickname' do
-  if current_user
-    @current_user = current_user
-  end
-  @user = User.first(:nickname => params[:nickname])
-  halt 404 if @user.nil?
-  haml :user
-end
+# get '/:nickname' do
+#   if current_user
+#     @current_user = current_user
+#   end
+#   @user = User.first(:nickname => params[:nickname])
+#   halt 404 if @user.nil?
+#   haml :user
+# end
 
 
 

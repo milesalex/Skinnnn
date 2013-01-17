@@ -6,14 +6,14 @@ use OmniAuth::Strategies::Twitter, '7RdGp1L2JBuft2VAghng', 'rJe7eHZbYsXOX0bhs8EP
 # enable sessions
 enable :sessions
 
-
 helpers do
 
+  # Is user currently logged in
 	def current_user
 		@current_user ||= User.get(session[:user_id]) if session[:user_id]
 	end
 
-    # Redirect to last page or root
+  # Redirect to last page or root
   def redirect_last
     if session[:redirect_to]
       redirect_url = session[:redirect_to]

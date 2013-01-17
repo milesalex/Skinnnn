@@ -11,18 +11,26 @@
     #wrapper  
       #header  
         %h1 Resumator
-        %a{:href => '/'} Home
-        %span • 
-        %a{:href => '/people/'} People
-        %span • 
-        - if current_user
-          %a{:href => '/sign_out/'} Sign Out
-          %span • 
-          Hello
-          %a{:href => '/' + @current_user.nickname}
-            = @current_user.nickname
-        - else
-          %a{:href => '/sign_in/'} Sign In
+        %ul#nav
+          %li
+            %a{:href => '/'} Home
+          %li
+            %a{:href => '/about/'} About
+          %li
+            %a{:href => '/people/'} People
+          - if current_user
+            %li
+              %a{:href => '/sign_out/'} Sign Out
+            %li
+              Hello 
+              %a{:href => '/' + @current_user.nickname}
+                = @current_user.nickname
+          - else
+            %li
+              %a{:href => '/sign_in/'} Sign In
       #content
         =yield
   %script{:type => "text/javascript", :src => "/js/application.js"}
+  
+  
+
