@@ -3,17 +3,17 @@
 (function($){
 
 
-	// // User Model - GET User.find(:id)
-	// var UserModel = Backbone.Model.extend({
-	// 	urlRoot: '/api/user',
-	// 	defaults: {}
-	// });
+	// User Model - GET User.find(:id)
+	window.UserModel = Backbone.Model.extend({
+		urlRoot: '/api/user',
+		defaults: {}
+	});
 
-	// // User Collection - GET User.all
-	// var UserCollection = Backbone.Collection.extend({
-	// 	model: UserModel,
-	// 	url: '/api/users'
-	// });
+	// User Collection - GET User.all
+	var UserCollection = Backbone.Collection.extend({
+		model: UserModel,
+		url: '/api/users'
+	});
 
 	// // List Users
 	// var ListUsers = Backbone.View.extend({
@@ -47,7 +47,8 @@
 	// App Router
 	var AppRouter = Backbone.Router.extend({
 		routes: {
-			"/about/" : "showAbout",
+			"" : "index",
+			":nickname" : "getUser",
 			"*actions" : "defaultRoute"
 		},
 		showAbout: function(e){
@@ -59,8 +60,20 @@
 
 	var appRouter = new AppRouter();
 
+	appRouter.on('route:index', function(x){
+		console.log("You've reached the homepage");
+	});
+
+	appRouter.on('route:getUser', function(nickname){
+		console.log(nickname);
+		var user = new UserModel({nickname: nickname});
+		var user_id = user.id;
+		console.log(nickname + ": " + id);
+		user.fetch();
+	});
+
 	appRouter.on('route:defaultRoute', function(actions){
-		alert(actions);
+		//alert(actions);
 	});
 
 

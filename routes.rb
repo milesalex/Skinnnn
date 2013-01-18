@@ -14,8 +14,12 @@ get '/api/user/:id' do
   user.to_json
 end
 
+get '/api/user/:nickname' do
+  user = User.first(:nickname => params[:nickname]);
+  user.to_json
+end
+
 put '/api/user/:id' do 
-  puts 'PUT'
   user = User.get(params[:id])
   user.update(json_data)
   user.to_json
@@ -34,7 +38,6 @@ end
 
 get '/auth/:name/callback' do
   auth = request.env["omniauth.auth"]
-  puts auth
   user = User.first_or_create({ :uid => auth["uid"]}, {
     :uid => auth["uid"],
     :nickname => auth["info"]["nickname"], 
@@ -65,17 +68,8 @@ end
 
 get '/' do
   if current_user
-    # The following line just tests to see that it's working.
-    #   If you've logged in your first user, '/' should load: "1 ... 1";
-    #   You can then remove the following line, start using view templates, etc.
-    #current_user.id.to_s + " ... " + session[:user_id].to_s
-    # @users = User.all
     @current_user = current_user
   end
-  erb :index
-end
-
-get '/*' do
   erb :index
 end
 
@@ -85,15 +79,20 @@ end
 #   haml :people
 # end
 
-# get '/:nickname' do
-#   if current_user
-#     @current_user = current_user
-#   end
-#   @user = User.first(:nickname => params[:nickname])
-#   halt 404 if @user.nil?
-#   haml :user
-# end
+['/:nickname', '/:nickname/'].each do |path|
+  get path do
+    if current_user
+      @current_user = current_user
+    end
+    @user = User.first(:nickname => params[:nickname])
+    halt 404 if @user.nil?
+    erb :index
+  end
+end
 
+get '/*' do
+  erb :index
+end
 
 
 
