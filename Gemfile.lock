@@ -28,7 +28,6 @@ GEM
     do_sqlite3 (0.10.11)
       data_objects (= 0.10.11)
     fastercsv (1.5.5)
-    haml (3.1.7)
     hashie (1.2.0)
     json (1.7.6)
     json_pure (1.7.6)
@@ -61,7 +60,6 @@ DEPENDENCIES
   dm-postgres-adapter
   dm-serializer
   dm-sqlite-adapter
-  haml
   omniauth
   omniauth-twitter
   sinatra

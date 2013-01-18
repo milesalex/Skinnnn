@@ -5,7 +5,6 @@ require "dm-core"
 require "dm-migrations"
 require "dm-serializer/to_json"
 require "json"
-require "haml"
 require "sinatra"
 
 require "./model"

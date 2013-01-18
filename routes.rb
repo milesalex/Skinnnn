@@ -72,7 +72,11 @@ get '/' do
     # @users = User.all
     @current_user = current_user
   end
-  haml :index
+  erb :index
+end
+
+get '/*' do
+  erb :index
 end
 
 # get '/people/' do

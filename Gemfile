@@ -5,7 +5,6 @@ gem "omniauth-twitter"
 gem "dm-core"
 gem "dm-migrations"
 gem "dm-serializer"
-gem "haml"
 gem "sinatra"
 
 group :development do
@@ -14,4 +13,4 @@ end
 
 group :production do
   gem 'dm-postgres-adapter'
-end
+end 
