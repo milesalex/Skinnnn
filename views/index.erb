@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Resumator</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <%= css :main, :media => 'screen' %>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Index</h4>
+				<div class="navbar navbar-inverse">
+					<div class="navbar-inner">
+						<ul class="nav">
+							<li><a href="/">home</a></li>
+							<% if current_user %>
+								<li><a href="/sign_out/">sign out</a></li>
+								<li><a href="/<%= @current_user.nickname %>">Hello <%= @current_user.nickname %></a></li>
+							<% else %>
+								<li><a href="/sign_in/">sign in</a></li>
+							<% end %>
+						</ul>
+					</div>
+				</div>	
+				
+		</div>
+	</body>
+	<%= js  :main %>
+</html> 
