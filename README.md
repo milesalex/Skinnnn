@@ -5,12 +5,12 @@ A bare-bones vCard web app -- by [@aaronrich](https://github.com/aaronrich) and 
 - dm-core
 - dm-migrations
 - dm-postgres-adapter
+- dm-serializer
 - dm-sqlite-adapter
-- haml
-- json
 - omniauth
 - omniauth-twitter
 - sinatra
+
 
 ## Get it running locally
 	# Install dependencies
