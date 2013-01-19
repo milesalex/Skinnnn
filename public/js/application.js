@@ -2,6 +2,10 @@
 
 (function($){
 
+	_.templateSettings = {
+    interpolate: /\[\%\=(.+?)\%\]/g,
+    evaluate: /\[\%(.+?)\%\]/g
+	};
 
 	// User Model - GET User.find(:id)
 	UserModel = Backbone.Model.extend({
@@ -41,17 +45,20 @@
 
 
 	// // User View
-	// var UserView = Backbone.View.extend({
-	// 	el: $('#content'),
-	// 	template: _.template($('#user_template').html()),
-	// 	initialize: function(user_id){
-	// 		_.bindAll(this, 'render');
-	// 	},
-	// 	render: function(){
-	// 		//var html = this.template()
-	// 	}
-	// });
-
+	var UserView = Backbone.View.extend({
+		el: $('.main'),
+		template: _.template($('#user_template').html()),
+		initialize: function(user_id){
+			_.bindAll(this, 'render');
+		},
+		render: function(user_data){
+			// Compile the template using underscore
+      var template = _.template( $("#user_template").html(), user_data );
+      // Load the compiled HTML into the Backbone "el"
+      this.$el.html( template );
+      return this;
+		}
+	});
 
 
 	// App Router
@@ -70,8 +77,11 @@
 			user.fetch({
 				success: function(model){
 					console.log(model.attributes);
+					var userView = new UserView();
+					userView.render(model.attributes);
 				}
 			});
+
 		}
 	});
 

@@ -38,7 +38,11 @@
     <%= yield %>
 
   </body>
-  <script type="text/template" src="/js//templates/users_list_template.js"></script>
-  <script type="text/template" src="/js//templates/user_template.js"></script>
+  <script type="text/template" id="user_template">
+    <h1>[%= name %] - [%= id %]</h1>
+    <ul>
+      <li>[%= nickname %]</li>
+    </ul>
+  </script>
   <script type="text/javascript" src="/js/application.js"></script>
 </html> 
