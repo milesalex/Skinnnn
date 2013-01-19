@@ -4,7 +4,7 @@
 
 
 	// User Model - GET User.find(:id)
-	window.UserModel = Backbone.Model.extend({
+	UserModel = Backbone.Model.extend({
 		urlRoot: '/api/user',
 		defaults: {}
 	});
@@ -40,7 +40,17 @@
 
 
 
-	// ------------------------------------------------
+	// // User View
+	// var UserView = Backbone.View.extend({
+	// 	el: $('#content'),
+	// 	template: _.template($('#user_template').html()),
+	// 	initialize: function(user_id){
+	// 		_.bindAll(this, 'render');
+	// 	},
+	// 	render: function(){
+	// 		//var html = this.template()
+	// 	}
+	// });
 
 
 
@@ -50,34 +60,22 @@
 			"" : "index",
 			":nickname" : "getUser"
 		},
-		showAbout: function(e){
-			e.preventDefault();
-			console.log('about');
-			this.navigate("about", true);
+		index: function(){
+			console.log("You've reached the homepage");
+		},
+		getUser: function(nickname){
+			console.log(nickname);
+			var user_id = $('body').data('id');
+			var user = new UserModel({id: user_id});
+			user.fetch({
+				success: function(model){
+					console.log(model.attributes);
+				}
+			});
 		}
 	});
 
 	var appRouter = new AppRouter();
-
-	appRouter.on('route:index', function(x){
-		console.log("You've reached the homepage");
-	});
-
-	appRouter.on('route:getUser', function(nickname){
-		console.log(nickname);
-		var user_id = $('.container').data('id');
-		var user = new UserModel({id: user_id});
-		user.fetch({
-			success: function(model){
-				console.log(model.attributes);
-			}
-		});
-	});
-
-	appRouter.on('route:defaultRoute', function(actions){
-		//alert(actions);
-	});
-
 
 	Backbone.history.start({ pushState: true });
 
