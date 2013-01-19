@@ -44,39 +44,42 @@
 
 
 
-	// // App Router
-	// var AppRouter = Backbone.Router.extend({
-	// 	routes: {
-	// 		"" : "index",
-	// 		":nickname" : "getUser"
-	// 	},
-	// 	showAbout: function(e){
-	// 		e.preventDefault();
-	// 		console.log('about');
-	// 		this.navigate("about", true);
-	// 	}
-	// });
+	// App Router
+	var AppRouter = Backbone.Router.extend({
+		routes: {
+			"" : "index",
+			":nickname" : "getUser"
+		},
+		showAbout: function(e){
+			e.preventDefault();
+			console.log('about');
+			this.navigate("about", true);
+		}
+	});
 
-	// var appRouter = new AppRouter();
+	var appRouter = new AppRouter();
 
-	// appRouter.on('route:index', function(x){
-	// 	console.log("You've reached the homepage");
-	// });
+	appRouter.on('route:index', function(x){
+		console.log("You've reached the homepage");
+	});
 
-	// appRouter.on('route:getUser', function(nickname){
-	// 	console.log(nickname);
-	// 	var user = new UserModel({nickname: nickname});
-	// 	var user_id = user.id;
-	// 	console.log(nickname + ": " + id);
-	// 	user.fetch();
-	// });
+	appRouter.on('route:getUser', function(nickname){
+		console.log(nickname);
+		var user_id = $('.container').data('id');
+		var user = new UserModel({id: user_id});
+		user.fetch({
+			success: function(model){
+				console.log(model.attributes);
+			}
+		});
+	});
 
-	// appRouter.on('route:defaultRoute', function(actions){
-	// 	//alert(actions);
-	// });
+	appRouter.on('route:defaultRoute', function(actions){
+		//alert(actions);
+	});
 
 
-	// Backbone.history.start({ pushState: true });
+	Backbone.history.start({ pushState: true });
 
 
 
