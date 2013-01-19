@@ -31,9 +31,10 @@
       var users = new UserCollection();
       users.fetch({
         success: function (users) {
-        	console.log(users.models);
           var template = _.template($('#users_template').html(), {users: users.models});
+          that.$el.hide();
           that.$el.html(template);
+          that.$el.fadeIn(300);
         }
       });
     }
@@ -53,7 +54,9 @@
 			// Compile the template using underscore
       var template = _.template( $("#user_template").html(), user_data );
       // Load the compiled HTML into the Backbone "el"
-      this.$el.html( template );
+      this.$el.hide();
+      this.$el.html(template);
+      this.$el.fadeIn(300);
       return this;
 		}
 	});

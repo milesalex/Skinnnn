@@ -5,6 +5,7 @@ gem "omniauth-twitter"
 gem "dm-core"
 gem "dm-migrations"
 gem "dm-serializer"
+gem "dm-constraints"
 gem "sinatra"
 
 group :development do

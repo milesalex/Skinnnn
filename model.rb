@@ -8,23 +8,27 @@ class User
   property :nickname,   String
   property :email,      String
   property :created_at, DateTime
-  has n, :links
 
-  def to_hash
-    Hash[*instance_variables.map { |v|
-      [v.to_sym, instance_variable_get(v)]
-    }.flatten]
-  end
-  
+  has 1, :profile, :constraint => :destroy
+end
+
+class Profile
+  include DataMapper::Resource
+  property :id,    Serial
+  property :bio,   String
+  belongs_to :user
+
+  has n, :links, :constraint => :destroy
 end
 
 class Link
   include DataMapper::Resource
-  property :id,         Serial
-  property :name,       String, :required => true
-  property :url,        String, :required => true
-  belongs_to :user
+  property :id,    Serial
+  property :name,  String
+  property :url,   String
+  belongs_to :profile
 end
+
 
 DataMapper.finalize
 DataMapper.auto_upgrade!

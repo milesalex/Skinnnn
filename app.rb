@@ -4,6 +4,7 @@ require "omniauth-twitter"
 require "dm-core"
 require "dm-migrations"
 require "dm-serializer/to_json"
+require "dm-constraints"
 require "json"
 require "sinatra"
 
