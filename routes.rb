@@ -79,21 +79,19 @@ end
 #   haml :people
 # end
 
-['/:nickname', '/:nickname/'].each do |path|
-  get path do
-    if current_user
-      @current_user = current_user
-    end
-    @user = User.first(:nickname => params[:nickname])
-    halt 404 if @user.nil?
-    erb :index
-  end
-end
 
-get '/*' do
+get '/:nickname/?' do
+  if current_user
+    @current_user = current_user
+  end
+  @user = User.first(:nickname => params[:nickname])
+  puts '@user'
+  halt 404 if @user.nil?
   erb :index
 end
 
-
-
+not_found do
+  status 404
+  erb :notfound
+end
 
