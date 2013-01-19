@@ -38,9 +38,33 @@
     <%= yield %>
 
   </body>
+  <script type="text/template" id="users_template">
+    <h1>People</h1>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Nickname</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        [% _.each(users, function(user) { %]
+          <tr>
+            <td>[%= user.get('id') %]</td>
+            <td>[%= user.get('name') %]</td>
+            <td>[%= user.get('nickname') %]</td>
+            <td><a class="btn" href="/[%= user.get('nickname') %]">View Profile</a></td>
+          </tr>
+        [% }); %]
+      </tbody>
+    </table>
+  </script>
   <script type="text/template" id="user_template">
-    <h1>[%= name %] - [%= id %]</h1>
+    <h1>[%= name %]</h1>
     <ul>
+      <li>[%= id %]</li>
       <li>[%= nickname %]</li>
     </ul>
   </script>
