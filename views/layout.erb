@@ -24,11 +24,15 @@
         <div class="container">
           <ul class="nav ">
             <li><a href="/">home</a></li>
+            <li class="divider-vertical"></li>
             <% if current_user %>
               <li><a href="/sign_out/">sign out</a></li>
+              <li class="divider-vertical"></li>
               <li><a href="/<%= @current_user.nickname %>">Hello <%= @current_user.nickname %></a></li>
+              <li class="divider-vertical"></li>
             <% else %>
               <li><a href="/sign_in/">sign in</a></li>
+              <li class="divider-vertical"></li>
             <% end %>
           </ul>
         </div>
@@ -46,7 +50,7 @@
           <th>ID</th>
           <th>Name</th>
           <th>Nickname</th>
-          <th></th>
+          <th>Go To Profile</th>
         </tr>
       </thead>
       <tbody>

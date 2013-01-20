@@ -16,6 +16,7 @@ class Profile
   include DataMapper::Resource
   property :id,    Serial
   property :bio,   String
+  property :city,  String
   belongs_to :user
 
   has n, :links, :constraint => :destroy

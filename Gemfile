@@ -6,6 +6,7 @@ gem "dm-core"
 gem "dm-migrations"
 gem "dm-serializer"
 gem "dm-constraints"
+gem "route_downcaser"
 gem "sinatra"
 
 group :development do
