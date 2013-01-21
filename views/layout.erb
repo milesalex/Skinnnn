@@ -42,6 +42,8 @@
     <%= yield %>
 
   </body>
+
+  <!-- User list template -->
   <script type="text/template" id="users_template">
     <h1>People</h1>
     <table class="table table-bordered">
@@ -65,12 +67,46 @@
       </tbody>
     </table>
   </script>
+
+  <!-- Single User Template -->
   <script type="text/template" id="user_template">
     <h1>[%= name %]</h1>
-    <ul>
-      <li>[%= id %]</li>
-      <li>[%= nickname %]</li>
-    </ul>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nickname</th>
+          <th>Bio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>[%= id %]</td>
+          <td>[%= nickname %]</td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <a href="#" class="btn edit-btn">Edit</a>
   </script>
+
+  <!-- Edit User Template -->
+  <script type="text/template" id="edit_template">
+    <div class="well">
+      <h3>Edit User</h3>
+      <form>
+        <fieldset>
+          <label>Name</label>
+          <input type="text" placeholder="Name">
+          <label>Bio</label>
+          <textarea rows="6" placeholder="About you"></textarea>
+          <br/>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </fieldset>
+      </form>
+    </div>
+  </script>
+
+  <!-- The Application -->
   <script type="text/javascript" src="/js/application.js"></script>
 </html> 

@@ -47,8 +47,13 @@
 	var UserView = Backbone.View.extend({
 		el: $('.main'),
 		template: _.template($('#user_template').html()),
-		initialize: function(user_id){
+    events: {
+      'click a.edit-btn' : 'editProfile'
+    },
+		initialize: function(){
 			_.bindAll(this, 'render');
+
+      this.isEditing = false;
 		},
 		render: function(user_data){
 			// Compile the template using underscore
@@ -58,8 +63,38 @@
       this.$el.html(template);
       this.$el.fadeIn(300);
       return this;
-		}
+		},
+    editProfile: function(){
+      this.isEditing = true;
+      $('.edit-btn').text('Editing...');
+      if (this.isEditing === true){
+        // Render edit view
+        var editView = new EditView();
+        editView.render();
+      } else {
+        // Unrender edit view
+      }
+    }
 	});
+
+
+
+  var EditView = Backbone.View.extend({
+    el: $('.edit-profile'),
+    initialize: function(){
+      _.bindAll(this, 'render');
+    },
+    render: function(){
+      var template = _.template($('#edit_template').html());
+      this.$el.html(template);
+      this.$el.fadeIn(300);
+      return this;
+    },
+    editProfile: function(user_id){
+
+    }
+  });
+
 
 
 	// App Router
@@ -83,7 +118,6 @@
 					userView.render(model.attributes);
 				}
 			});
-
 		}
 	});
 
