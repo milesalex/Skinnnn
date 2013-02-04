@@ -69,7 +69,8 @@
   </script>
 
   <!-- Single User Template -->
-  <script type="text/template" id="user_template">
+  <script type="text/template" id="user_view">
+    <a href="#" class="btn edit-btn" data-mode="false">Edit</a>
     <h1>[%= name %]</h1>
     <table class="table table-bordered">
       <thead>
@@ -81,30 +82,69 @@
       </thead>
       <tbody>
         <tr>
-          <td>[%= id %]</td>
-          <td>[%= nickname %]</td>
+          <td>[%= user.get('id') %]</td>
+          <td>[%= user.get('nickname') %]</td>
           <td></td>
         </tr>
       </tbody>
     </table>
-    <a href="#" class="btn edit-btn">Edit</a>
+    <h2>Links</h2>
+    <ol>
+        [% _.each(user.links, function(link) { %]
+          <li>
+          <a href="[%= link.get('url') %]">[%= link.get('name') %]</a>
+          </li>
+        [% }); %]
   </script>
 
   <!-- Edit User Template -->
-  <script type="text/template" id="edit_template">
+  <script type="text/template" id="user_edit">
     <div class="well">
       <h3>Edit User</h3>
       <form>
+        <a href="#" class="btn save-btn">Save</a>
         <fieldset>
           <label>Name</label>
-          <input type="text" placeholder="Name">
+          <input type="text" 
+                 placeholder="Name" 
+                 value="[%= user.get('id') %]">
           <label>Bio</label>
-          <textarea rows="6" placeholder="About you"></textarea>
+          <textarea rows="6" 
+                    placeholder="About you"
+                    value="[%= user.get('bio') %]"></textarea>
           <br/>
-          <button type="submit" class="btn btn-primary">Submit</button>
         </fieldset>
+        <a href="#" class="btn save-btn">Save</a>
       </form>
+    <h2>Links</h2>
+    <form id="add_link">
+        <input type="text" placeholder="URL" name="url"/>
+        <input type="text" placeholder="Name" name="name"/>
+        <a href="#" class="btn add-btn">Add</a>
+    </form>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>URL</th>
+        </tr>
+      </thead>
+      <tbody id="link_list">
+        [% _.each(user.links, function(link) { %]
+            [% _.template($('link_view').html())({name: link.get('name'),
+                                                  url: link.get('url')}) %]
+        [% }); %]
+      </tbody>
+  </table>
     </div>
+  </script>
+
+  <!-- View Link Template -->
+  <script type="text/template" id="link_view">
+      <tr>
+        <td>[%= name %]</td>
+        <td>[%= url %]</td>
+      </tr>
   </script>
 
   <!-- The Application -->

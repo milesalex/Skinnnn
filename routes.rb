@@ -11,17 +11,17 @@ end
 
 get '/api/user/:id' do
   user = User.get(params[:id])
-  user.to_json
+  user.to_json(:relationships=>{:profile=>{:methods=>[:links]}})
 end
 
 get '/api/user/:nickname' do
   user = User.first(:nickname => params[:nickname]);
-  user.to_json
+  user.to_json(:relationships=>{:profile=>{:methods=>[:links]}})
 end
 
 put '/api/user/:id' do 
   user = User.get(params[:id])
-  user.update(json_data)
+  user.update(params)
   user.to_json
 end
 
