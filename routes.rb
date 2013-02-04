@@ -15,6 +15,7 @@ get '/api/user/:id' do
 end
 
 get '/api/user/:nickname' do
+  # curently in use
   user = User.first(:nickname => params[:nickname]);
   user.to_json(:relationships=>{:profile=>{:methods=>[:links]}})
 end
