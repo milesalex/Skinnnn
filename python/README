@@ -1,0 +1,10 @@
+dependencies
+    - werkzeug
+    - sqlalchemy 
+
+tests
+    python -m unittest test_model.py
+or
+    pytest -v test_model.py
+    pytest -v test_model.py test_02
+
