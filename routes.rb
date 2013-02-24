@@ -20,7 +20,7 @@ get '/api/user/:nickname' do
   user.to_json(:relationships=>{:profile=>{:methods=>[:links]}})
 end
 
-put '/api/user/:id' do 
+put '/api/user/:id/?' do 
   user = User.get(params[:id])
   user.update(params)
   user.to_json
