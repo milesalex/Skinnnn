@@ -34,6 +34,26 @@ get '/api/auth/logged_in' do
   end
 end
 
+## save link
+##{}"/api/user/" + profile_id + "/link/" + link_id
+put '/api/user/:id/link/:link_id/?' do
+  user = User.get(params[:id])
+end
+
+
+## url = "/api/user/" + profile_id + "/link/" + link_id;
+## type = "PUT";
+
+## url = "/api/user/" + profile_id + "/links";
+## type = "POST";
+
+## var url = "/api/user/" + uid;
+## type: 'PUT'
+
+## var url = "/api/user/" + uid + '/' + e.data.link.id;
+## type: 'DELETE'
+
+
 
 ## AUTHENTICATION
 
