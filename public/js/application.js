@@ -198,6 +198,7 @@ $(document).ready(function()
         var remove_button = null;
         var links = data.profile.links;
 
+        // dummy data for testing
         links = [{name: 'link1', url: 'http://www.url.1', id: 0},
                  {name: 'link2', url: 'http://www.url.2', id: 1},
                  {name: 'link3', url: 'http://www.url.3', id: 2}];
