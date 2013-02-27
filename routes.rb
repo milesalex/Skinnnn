@@ -11,17 +11,18 @@ end
 
 get '/api/user/:id' do
   user = User.get(params[:id])
-  user.to_json
+  user.to_json(:relationships=>{:profile=>{:methods=>[:links]}})
 end
 
 get '/api/user/:nickname' do
+  # curently in use
   user = User.first(:nickname => params[:nickname]);
-  user.to_json
+  user.to_json(:relationships=>{:profile=>{:methods=>[:links]}})
 end
 
-put '/api/user/:id' do 
+put '/api/user/:id/?' do 
   user = User.get(params[:id])
-  user.update(json_data)
+  user.update(params)
   user.to_json
 end
 
@@ -32,6 +33,26 @@ get '/api/auth/logged_in' do
     status 400
   end
 end
+
+## save link
+##{}"/api/user/" + profile_id + "/link/" + link_id
+put '/api/user/:id/link/:link_id/?' do
+  user = User.get(params[:id])
+end
+
+
+## url = "/api/user/" + profile_id + "/link/" + link_id;
+## type = "PUT";
+
+## url = "/api/user/" + profile_id + "/links";
+## type = "POST";
+
+## var url = "/api/user/" + uid;
+## type: 'PUT'
+
+## var url = "/api/user/" + uid + '/' + e.data.link.id;
+## type: 'DELETE'
+
 
 
 ## AUTHENTICATION

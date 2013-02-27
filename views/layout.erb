@@ -8,13 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
-    <script type="text/javascript" src="/libs/jquery-1.8.3.min.js"></script>
-    <script type="text/javascript" src="/libs/underscore-min.js"></script>
-    <script type="text/javascript" src="/libs/backbone-min.js"></script>
+
+    <script type="text/javascript" src="/js/libs/jquery-1.8.3.min.js"></script>
+    <!-- The Application -->
+    <script type="text/javascript" src="/js/application.js"></script>
+
+
   </head>
 
   <% if @user %>
-  <body data-id="<%= @user.id %>">
+  <body data-resumator_profile_id="<%= @user.id %>">
   <% else %>
   <body>
   <% end %>
@@ -69,24 +72,40 @@
   </script>
 
   <!-- Single User Template -->
-  <script type="text/template" id="user_template">
-    <h1>[%= name %]</h1>
+  <div id="user_view" style="display:hidden">
+    <h1 id="user_view_name">the name</h1>
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Nickname</th>
           <th>Bio</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>[%= id %]</td>
-          <td>[%= nickname %]</td>
-          <td></td>
+        <tr id="user_view_profile">
+          <td id="user_view_nickname">the nickname</td>
+          <td id="user_view_bio">the bio</td>
+           <td>
+               <a href="#" id="user_view_edit_profile">edit</a>
+           </td>
+        </tr>
+        <tr style="display:hidden" id="user_view_profile_edit">
+            <form id="user_view_profile_form">
+            <td>
+                <input type="text" placeholder="Nickname" name="nickname"/>
+            </td>
+            <td>
+                <input type="textarea" placeholder="Bio" name="bio"/>
+            </form>
+            </td>
+            <td>
+                <a href="#" id="user_view_profile_edit_save">save</a>
+                <a href="#" id="user_view_profile_edit_cancel">cancel</a>
+            </td>
         </tr>
       </tbody>
     </table>
+<<<<<<< HEAD
     <a href="#" class="btn edit-btn">Edit</a>
   </script>
 
@@ -110,3 +129,30 @@
   <!-- The Application -->
   <script type="text/javascript" src="/app/application.js"></script>
 </html> 
+=======
+    <h2>Links</h2>
+    <ul id="user_view_links">
+        <!-- link template -->
+        <li id="user_view_link" style="display:hidden">
+          <span id="user_view_link_name">the link name</span>
+          <span id="user_view_link_url">the link url</span>
+          <a href="#" 
+             style="display:hidden" 
+             id="user_view_edit_link">edit</a>
+         <a href="#" 
+            style="display:hidden" 
+            id="user_view_remove_link">remove</a>
+        </li>
+        <li id="user_view_link_edit" style="display:none">
+            <form id="user_view_link_form">
+                <input type="text" placeholder="URL" name="url"/>
+                <input type="text" placeholder="Name" name="name"/>
+            </form>
+            <a href="#" id="user_view_link_edit_save">save</a>
+            <a href="#" id="user_view_link_edit_cancel">cancel</a>
+        </li>
+    </ul>
+    <a href="#" id="user_view_add_link">add</a>
+  </div>
+</html> 
+>>>>>>> develop

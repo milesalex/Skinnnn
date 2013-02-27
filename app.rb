@@ -1,3 +1,4 @@
+require "rubygems"
 require "bundler/setup"
 require "omniauth" 
 require "omniauth-twitter" 
