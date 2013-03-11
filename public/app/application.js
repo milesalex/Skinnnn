@@ -62,7 +62,7 @@ $(document).ready(function()
         });
 
         var url = "/api/user/" + uid;
-        var r = $.ajax( { url: url, type: 'PUT' });
+        var r = $.ajax( { url: url, type: 'PUT', data: data });
         r.done(function(user) { render(user); });
         r.fail(function() { console.log("can't save profile "); });
     }
@@ -100,7 +100,7 @@ $(document).ready(function()
             url = "/api/user/" + profile_id + "/links";
             type = "POST";
         }
-        var r = $.ajax( { url: url, type: type });
+        var r = $.ajax( { url: url, type: type, data: data });
         r.done(function(user) { render(user); });
         r.fail(function() { console.log("can't save link "); });
     }

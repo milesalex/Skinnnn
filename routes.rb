@@ -53,6 +53,10 @@ end
 ## update user???
 ## var url = "/api/user/" + uid;
 ## type: 'PUT'
+put '/api/user/:id/?' do
+  puts '------ PUT user ------'
+end
+
 
 ## Delete account
 ## var url = "/api/user/" + uid + '/' + e.data.link.id;
