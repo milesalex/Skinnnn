@@ -191,18 +191,14 @@ $(document).ready(function()
     // all the logic
     /////////////////////////////////
     function render(data)
-    {
+    {   
+        console.log(data);
         var link_data = null;
         var new_element = null;
         var edit_button = null;
         var event_data = null;
         var remove_button = null;
         var links = data.profile.links;
-
-        // dummy data for testing
-        links = [{name: 'link1', url: 'http://www.url.1', id: 0},
-                 {name: 'link2', url: 'http://www.url.2', id: 1},
-                 {name: 'link3', url: 'http://www.url.3', id: 2}];
 
         view_nickname.html(data.nickname);
         view_bio.html(data.profile.bio);

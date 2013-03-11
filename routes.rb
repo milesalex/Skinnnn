@@ -48,6 +48,7 @@ post '/api/user/:id/links/?' do
   ## puts params[:id]
   user = User.get(params[:id])
   link = user.profile.links.create(:name => 'Travel Blog', :url => 'travel.alexmilesdesign.com')
+  puts user.to_json(:relationships=>{:profile=>{:methods=>[:links]}})
 end
 
 ## update user???
