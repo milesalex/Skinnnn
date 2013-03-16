@@ -94,8 +94,6 @@ end
   end
 end
 
-
-
 ## CONTENT PAGES
 
 get '/' do
@@ -105,19 +103,18 @@ get '/' do
   haml :index
 end
 
-# get '/:nickname/?' do
-#   if current_user
-#     @current_user = current_user
-#   end
-#   @user = User.first(:nickname => params[:nickname])
-#   puts '@user'
-#   halt 404 if @user.nil?
-#   haml :index
-# end
+get '/:nickname/?' do
+  if current_user
+    @current_user = current_user
+  end
+  @user = User.first(:nickname => params[:nickname])
+  puts '@user'
+  halt 404 if @user.nil?
+  haml :index
+end
 
-get '/people/' do
+get '/people/?' do
   users = User.all
-  halt 404 if @users.nil?
   haml :people, :locals => { users: users }
 end
 
