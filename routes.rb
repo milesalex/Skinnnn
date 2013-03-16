@@ -103,6 +103,10 @@ get '/' do
   haml :index
 end
 
+get '/design/?' do
+  haml :design
+end
+
 get '/:nickname/?' do
   if current_user
     @current_user = current_user
@@ -116,10 +120,6 @@ end
 get '/people/?' do
   users = User.all
   haml :people, :locals => { users: users }
-end
-
-get '/design/?' do
-  haml :design
 end
 
 
