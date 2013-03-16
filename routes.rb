@@ -121,6 +121,10 @@ get '/people/' do
   haml :people, :locals => { users: users }
 end
 
+get '/design/?' do
+  haml :design
+end
+
 
 not_found do
   status 404

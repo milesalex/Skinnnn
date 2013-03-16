@@ -1,3 +1,14 @@
+html, body {
+  font-family: 'helvetica';
+  height:100%;
+}
+
 .main {
   margin-top:80px;
+}
+
+.content, .cover {
+  width: 50%;
+  height:100%;
+  float: left;
 }
