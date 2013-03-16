@@ -1,15 +1,15 @@
-%h1#all-users All Users
-%table.table.table-bordered
-  %thead
-    %tr
-      %th Nickname
-      %th Bio
-  %tbody
-    %tr.user
-      - binding.pry
+.main.container
+  %h1#all-users All Users
+  %table.table.table-bordered
+    %thead
+      %tr
+        %th Nickname
+        %th Bio
+    %tbody
       - users.each do |user|
-        %td#user_view_nickname user.nickname
-        %td#user_view_bio      user.bio
-        %td
-          %a#user_view_edit_profile{:href => "#"} edit
-    %tr#user_view_profile_edit{:style => "display:hidden"}
+        %tr.user
+          %td#user_view_nickname #{user.nickname}
+          %td#user_view_bio      #{user.profile.bio if user.profile}
+          %td
+            %a#user_view_edit_profile{:href => "#"} edit
+        %tr#user_view_profile_edit{:style => "display:hidden"}
