@@ -20,7 +20,7 @@ get '/api/user/:nickname' do
   user.to_json(:relationships=>{:profile=>{:methods=>[:links]}})
 end
 
-put '/api/user/:id/?' do 
+put '/api/user/:id/?' do
   user = User.get(params[:id])
   user.update(params)
   user.to_json
@@ -70,16 +70,16 @@ end
 
 get '/auth/:name/callback' do
   auth = request.env["omniauth.auth"]
-  user = User.first_or_create({ :uid => auth["uid"]}, {
-    :uid => auth["uid"],
-    :nickname => auth["info"]["nickname"], 
-    :name => auth["info"]["name"],
-    :created_at => Time.now })
+  user = User.first_or_create({ :uid => auth["uid"]},
+                { :uid => auth["uid"],
+                  :nickname => auth["info"]["nickname"],
+                  :name => auth["info"]["name"],
+                  :created_at => Time.now })
   session[:user_id] = user.id
   redirect '/'
 end
 
-# any of the following routes should work to sign the user in: 
+# any of the following routes should work to sign the user in:
 ["/sign_in/?", "/signin/?", "/log_in/?", "/login/?", "/sign_up/?", "/signup/?"].each do |path|
   get path do
     redirect '/auth/twitter'
@@ -102,28 +102,28 @@ get '/' do
   if current_user
     @current_user = current_user
   end
-  erb :index
+  haml :index
 end
 
-# get '/people/' do
-#   @users = User.all
-#   halt 404 if @users.nil?
-#   haml :people
+# get '/:nickname/?' do
+#   if current_user
+#     @current_user = current_user
+#   end
+#   @user = User.first(:nickname => params[:nickname])
+#   puts '@user'
+#   halt 404 if @user.nil?
+#   haml :index
 # end
 
-
-get '/:nickname/?' do
-  if current_user
-    @current_user = current_user
-  end
-  @user = User.first(:nickname => params[:nickname])
-  puts '@user'
-  halt 404 if @user.nil?
-  erb :index
+get '/people/' do
+  users = User.all
+  halt 404 if @users.nil?
+  haml :people, :locals => { users: users }
 end
+
 
 not_found do
   status 404
-  erb :notfound
+  haml :notfound
 end
 
