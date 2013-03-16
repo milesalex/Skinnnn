@@ -1,15 +1,20 @@
 .content
-  %h1.name Alex Miles
-  %p.description
-  %ul
-    %li
-      %a{:href => "http://alexmi.es"} Portfolio
-    %li
-      %a{:href => "http://travel.alexmilesdesign.com"} Travel Blog
-.cover
-  %h1 Hello
+  .content-wrap
+    %h1.name Alex Miles
+    %p.description
 
-  %ul
+      VC at 
+      %a{:href => '#'} @kbspvc
+      , Photographer 
+      %a{:href => '#'} @narratively. 
+      Easily swayed, by one.
+    %ul
+      %li
+        %a{:href => "http://alexmi.es"} Portfolio
+      %li
+        %a{:href => "http://travel.alexmilesdesign.com"} Travel Blog
+
+  %ul.nav
     %li
       %a{:href => "/"} home
     - if current_user
@@ -21,3 +26,7 @@
     - else
       %li
         %a{:href => "/sign_in/"} sign in
+
+.cover
+
+  
