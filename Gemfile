@@ -9,6 +9,7 @@ gem "dm-constraints"
 gem "route_downcaser"
 gem "sinatra"
 gem "haml"
+gem "sass"
 gem "pry"
 
 group :development do
