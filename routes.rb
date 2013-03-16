@@ -40,6 +40,31 @@ put '/api/user/:id/link/:link_id/?' do
   user = User.get(params[:id])
 end
 
+## create link
+## url = "/api/user/" + profile_id + "/links";
+## type = "POST";
+post '/api/user/:id/links/?' do
+  puts '----- works ------'
+  ## puts params[:id]
+  user = User.get(params[:id])
+  user.to_json(:relationships=>{:profile=>{:methods=>[:links]}})
+  link = user.profile.links.create(:name => 'Travel Blog', :url => 'travel.alexmilesdesign.com')
+
+end
+
+## update user???
+## var url = "/api/user/" + uid;
+## type: 'PUT'
+put '/api/user/:id/?' do
+  puts '------ PUT user ------'
+end
+
+
+## Delete account
+## var url = "/api/user/" + uid + '/' + e.data.link.id;
+## type: 'DELETE'
+
+
 
 ## AUTHENTICATION
 
