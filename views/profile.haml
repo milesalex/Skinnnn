@@ -1,8 +1,7 @@
 .content
   .content-wrap
-    %h1.name Eli Russo
-    %p.description
-      I'm a digital product designer living and working in New York City. I run a small design studio called Girlfriend.
+    %h1.name #{user.name}
+    %p.description #{user.profile.bio}
     %ul
       %li
         %a{:href => "http://alexmi.es"} Portfolio
@@ -30,4 +29,4 @@
 
 .cover
 
-  
+

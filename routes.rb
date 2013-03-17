@@ -1,5 +1,7 @@
 # API ROUTES
 
+use SassEngine
+
 before '/api*' do
   content_type 'application/json'
 end
@@ -107,19 +109,20 @@ get '/design/?' do
   haml :design
 end
 
+get '/people/?' do
+  users = User.all
+  haml :people, :locals => { users: users }
+end
+
+
 get '/:nickname/?' do
   if current_user
     @current_user = current_user
   end
-  @user = User.first(:nickname => params[:nickname])
+  user = User.first(:nickname => params[:nickname])
   puts '@user'
-  halt 404 if @user.nil?
-  haml :index
-end
-
-get '/people/?' do
-  users = User.all
-  haml :people, :locals => { users: users }
+  halt 404 if user.nil?
+  haml :profile, :locals => { user: user }
 end
 
 
@@ -127,4 +130,3 @@ not_found do
   status 404
   haml :notfound
 end
-
