@@ -129,8 +129,14 @@ get '/:nickname/?' do
     @current_user = current_user
   end
   user = User.first(:nickname => params[:nickname])
-  puts '@user'
   halt 404 if user.nil?
+  if user.links.empty?
+    twitter = Link.create(name: "Twitter", url: "http://twitter.com/mklappstuhl")
+    dribble = Link.create(name: "Dribble", url: "http://dribbble.com/gabrielvaldivia")
+    google = Link.create(name: "Google+", url: "https://plus.google.com/u/0/103892258076354730962")
+    user.links = [ twitter, dribble, google ]
+  end
+  puts '@user'
   haml :profile, :locals => { user: user }
 end
 
