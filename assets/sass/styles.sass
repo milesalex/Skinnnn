@@ -11,23 +11,25 @@ html, body
     height: auto
 
 .content, .cover
-  width: 50%
   height: 100%
-  @media screen and (max-width: $break)
-    width: 100%
+  
 
 .content
+  width: 60%
   float: left
   @media screen and (max-width: $break)
     float: none
+    width: 100%
 
 .cover
+  width: 40%
   background-image: url('/img/cover.jpg')
   background-size: cover
   float: right
   @media screen and (max-width: $break)
     float: none
     height: 100px
+    width: 100%
 
 .content-wrap
   margin-top: 160px
@@ -49,7 +51,7 @@ p
   font-size: 26px
   color: #808080
   margin: 0
-  margin-bottom: 20px
+  margin-bottom: 50px
   font-weight: 300
 
 a
