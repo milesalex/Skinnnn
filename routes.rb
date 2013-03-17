@@ -102,7 +102,16 @@ get '/' do
   if current_user
     @current_user = current_user
   end
-  haml :index
+  home = User.new(name: "Skinnnn", nickname: "home", email: "hi@skinnnn.com",
+                  bio: "Got Skinnnn?", city: "Berlin")
+
+  # home.profile   = Profile.new(bio: "Got Skinnnn?", city: "Berlin")
+  twitter_signup = Link.new(name: "Sign up with Twitter", url: "/sign_in")
+  manifest       = Link.new(name: "Our Manifest", url: "/manifest")
+
+  home.links = [ twitter_signup, manifest ]
+
+  haml :profile, :locals => { user: home }
 end
 
 get '/design/?' do
