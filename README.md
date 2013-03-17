@@ -1,16 +1,5 @@
-# Resumator
-A bare-bones vCard web app
-
-## Dependencies
-- dm-core
-- dm-migrations
-- dm-postgres-adapter
-- dm-serializer
-- dm-sqlite-adapter
-- omniauth
-- omniauth-twitter
-- sinatra
-
+# Skinnnn
+A minimal about me application
 
 ## Get it running locally
 	# Install dependencies
