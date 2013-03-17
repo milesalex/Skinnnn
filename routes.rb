@@ -41,7 +41,7 @@ get '/' do
     @current_user = current_user
   end
   home = User.new(name: "Skinnnn", nickname: "home", email: "hi@skinnnn.com",
-                  bio: "A minimal vcard application", city: "Berlin")
+                  bio: "A minimal about me application", city: "Berlin")
 
   # home.profile   = Profile.new(bio: "Got Skinnnn?", city: "Berlin")
   twitter_signup = Link.new(name: "Sign up with Twitter", url: "/sign_in")
