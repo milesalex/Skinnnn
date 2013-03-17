@@ -114,10 +114,6 @@ get '/' do
   haml :profile, :locals => { user: home }
 end
 
-get '/design/?' do
-  haml :design
-end
-
 get '/people/?' do
   users = User.all
   haml :people, :locals => { users: users }
