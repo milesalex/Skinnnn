@@ -8,7 +8,7 @@ gem "dm-serializer"
 gem "dm-constraints"
 gem "route_downcaser"
 gem "sinatra"
-gem "haml"
+gem "slim"
 gem "sass"
 gem "pry"
 

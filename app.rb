@@ -9,7 +9,7 @@ require "dm-constraints"
 require "route_downcaser"
 require "json"
 require "sinatra"
-require "haml"
+require "slim"
 
 use RouteDowncaser::DowncaseRouteMiddleware
 

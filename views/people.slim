@@ -1,0 +1,13 @@
+h1#all-users All Users
+table.table.table-bordered
+  thead
+    tr
+      th Nickname
+      th Bio
+  tbody
+    - users.each do |user|
+      tr.user
+        td#user_view_nickname #{user.nickname}
+        td#user_view_bio      #{user.bio}
+        td
+          a#user_view_edit_profile href="#" edit

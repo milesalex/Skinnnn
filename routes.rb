@@ -4,6 +4,7 @@ use SassEngine
 use Api
 
 
+set :slim, :pretty => true
 
 ## AUTHENTICATION
 
@@ -48,12 +49,12 @@ get '/' do
 
   home.links = [ twitter_signup, manifest ]
 
-  haml :profile, :locals => { user: home }
+  slim :profile, :locals => { user: home }
 end
 
 get '/people/?' do
   users = User.all
-  haml :people, :locals => { users: users }
+  slim :people, :locals => { users: users }
 end
 
 
@@ -70,11 +71,11 @@ get '/:nickname/?' do
     user.links = [ twitter, dribble, google ]
   end
   puts '@user'
-  haml :profile, :locals => { user: user }
+  slim :profile, :locals => { user: user }
 end
 
 
 not_found do
   status 404
-  haml :notfound
+  slim :notfound
 end
