@@ -15,5 +15,6 @@ use RouteDowncaser::DowncaseRouteMiddleware
 
 require "./model"
 require "./helpers"
-require "./sass_engine"
+require "./routes/sass_engine"
+require "./routes/api"
 require "./routes"
