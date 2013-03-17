@@ -78,7 +78,7 @@ get '/auth/:name/callback' do
                   :name => auth["info"]["name"],
                   :created_at => Time.now })
   session[:user_id] = user.id
-  redirect '/'
+  redirect "/#{user.nickname}"
 end
 
 # any of the following routes should work to sign the user in:
