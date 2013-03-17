@@ -2,21 +2,12 @@
 .content
   .content-wrap
     %h1.name #{user.name}
-    / %p.description #{user.profile.bio}
-    %p.description 
-      I'm a digital product designer living and working in New York City. I run a small design studio called Girlfriend.
-      
+    %p.description #{user.bio}
     %ul
-      %li
-        %a{:target => "_blank", :href => "http://alexmil.es"} Portfolio
-      %li
-        %a{:target => "_blank", :href => "http://travel.alexmilesdesign.com"} Travel Blog
-      %li
-        %a{:target => "_blank", :href => "http://twitter.com/milesalex"} Twitter
-      %li
-        %a{:target => "_blank", :href => "http://dribbble.com/milesalex"} Dribbble
-      %li
-        %a{:target => "_blank", :href => "mailto:howdy@alexmilesdesign.com"} Email
+      - user.links.each do |link|
+        %li
+          %a{ href: link.url } #{link.name}
+>>>>>>> adfab2486a856812c4bda96fdad5668ef4e7ab3a
 
   %ul.nav
     %li
