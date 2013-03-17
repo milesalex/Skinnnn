@@ -7,17 +7,9 @@ class User
   property :name,       String
   property :nickname,   String
   property :email,      String
+  property :bio,        String
+  property :city,        String
   property :created_at, DateTime
-
-  has 1, :profile, :constraint => :destroy
-end
-
-class Profile
-  include DataMapper::Resource
-  property :id,    Serial
-  property :bio,   String
-  property :city,  String
-  belongs_to :user
 
   has n, :links, :constraint => :destroy
 end
@@ -27,7 +19,7 @@ class Link
   property :id,    Serial
   property :name,  String
   property :url,   String
-  belongs_to :profile
+  belongs_to :user
 end
 
 

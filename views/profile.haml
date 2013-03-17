@@ -1,18 +1,11 @@
 .content
   .content-wrap
     %h1.name #{user.name}
-    %p.description #{user.profile.bio}
+    %p.description #{user.bio}
     %ul
-      %li
-        %a{:href => "http://alexmi.es"} Portfolio
-      %li
-        %a{:href => "http://travel.alexmilesdesign.com"} Travel Blog
-      %li
-        %a{:href => "http://twitter.com/milesalex"} Twitter
-      %li
-        %a{:href => "http://dribbble.com/milesalex"} Dribbble
-      %li
-        %a{:href => "mailto:howdy@alexmilesdesign.com"} Email
+      - user.links.each do |link|
+        %li
+          %a{ href: link.url } #{link.name}
 
   %ul.nav
     %li
