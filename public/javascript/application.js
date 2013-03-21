@@ -1,4 +1,11 @@
-(function($){
+$(function(){
+
+  var User = Backbone.Model.extend({});
+
+  var Users = Backbone.Collection.extend({
+    model: User
+    url: '/api/users'
+  });
 
   var EditView = Backbone.View.extend({
     el: $('body'),
@@ -37,4 +44,4 @@
 
   var editView = new EditView();
 
-})(jQuery);
+});
