@@ -1,9 +1,11 @@
 $(function(){
 
-  var User = Backbone.Model.extend({});
+  var UserModel = Backbone.Model.extend({
+    urlRoot: '/api/users'
+  });
 
   var Users = Backbone.Collection.extend({
-    model: User,
+    model: UserModel,
     url: '/api/users'
   });
 
@@ -27,7 +29,13 @@ $(function(){
 
     saveOnBlur: function(){
       $('p.description').blur(function(){
-        alert('save now');
+        console.log('save now');
+        var user = new UserModel({id: 1});
+        user.fetch({
+          success: function (user) {
+            console.log(user.toJSON());
+          }
+        });
       });
     },
 
