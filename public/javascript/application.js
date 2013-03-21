@@ -10,10 +10,18 @@
         // Add contenteditable attr to elements
         $('h1.name').attr( 'contenteditable', 'true' );
         $('p.description').attr( 'contenteditable', 'true' );
+        // Enable saveOnBlur
+        this.saveOnBlur();
       } else {
         // User is logged out
         console.log('NOT logged in');
       }
+    },
+
+    saveOnBlur: function(){
+      $('p.description').blur(function(){
+        alert('save now');
+      });
     },
 
     initialize: function(){
