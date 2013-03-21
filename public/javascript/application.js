@@ -30,7 +30,8 @@ $(function(){
     saveOnBlur: function(){
       $('p.description').blur(function(){
         console.log('save now');
-        var user = new UserModel({id: 1});
+        var user_id = $('body').data('user-id');
+        var user = new UserModel({id: user_id});
         user.fetch({
           success: function (user) {
             console.log(user.toJSON());
