@@ -10,7 +10,7 @@ html
     link href="/stylesheets/styles.css" rel="stylesheet" type="text/css"
     script src="/libs/jquery.js" type="text/javascript"
   - if current_user
-    body.logged-in
+    body.logged-in data-user-id="#{current_user.id}"
       == yield
   - else
     body
