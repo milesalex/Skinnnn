@@ -9,18 +9,18 @@ class Api < Sinatra::Base
     users.to_json
   end
 
-  get '/api/user/:id' do
+  get '/api/users/:id' do
     user = User.get(params[:id])
     user.to_json(:relationships=>{:profile=>{:methods=>[:links]}})
   end
 
-  get '/api/user/:nickname' do
+  get '/api/users/:nickname' do
     # curently in use
     user = User.first(:nickname => params[:nickname]);
     user.to_json(:relationships=>{:profile=>{:methods=>[:links]}})
   end
 
-  put '/api/user/:id/?' do
+  put '/api/users/:id/?' do
     user = User.get(params[:id])
     user.update(params)
     user.to_json
@@ -36,14 +36,14 @@ class Api < Sinatra::Base
 
   ## save link
   ##{}"/api/user/" + profile_id + "/link/" + link_id
-  put '/api/user/:id/link/:link_id/?' do
+  put '/api/users/:id/link/:link_id/?' do
     user = User.get(params[:id])
   end
 
   ## create link
   ## url = "/api/user/" + profile_id + "/links";
   ## type = "POST";
-  post '/api/user/:id/links/?' do
+  post '/api/users/:id/links/?' do
     puts '----- works ------'
     ## puts params[:id]
     user = User.get(params[:id])
@@ -55,7 +55,7 @@ class Api < Sinatra::Base
   ## update user???
   ## var url = "/api/user/" + uid;
   ## type: 'PUT'
-  put '/api/user/:id/?' do
+  put '/api/users/:id/?' do
     puts '------ PUT user ------'
   end
 
