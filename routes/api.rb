@@ -22,7 +22,7 @@ class Api < Sinatra::Base
 
   put '/api/users/:id' do
     raise 403 unless @current_user.id == session[:user_id]
-    @current_user.update(request.body)
+    @current_user.update(JSON.parse(request.body.read))
   end
 
   get '/api/auth/logged_in' do
