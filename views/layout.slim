@@ -9,8 +9,8 @@ html
     link href="http://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet" type="text/css"
     link href="/stylesheets/styles.css" rel="stylesheet" type="text/css"
     script src="/libs/jquery.js" type="text/javascript"
-  - if current_user
-    body.logged-in data-user-id="#{current_user.id}"
+  - if @current_user
+    body.logged-in data-user-id="#{@current_user.id}"
       == yield
   - else
     body
@@ -22,4 +22,4 @@ html
 
 
 
-    
+

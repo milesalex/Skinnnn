@@ -1,5 +1,5 @@
-# You'll need to customize the following line. Replace the CONSUMER_KEY 
-# and CONSUMER_SECRET with the values you got from Twitter 
+# You'll need to customize the following line. Replace the CONSUMER_KEY
+# and CONSUMER_SECRET with the values you got from Twitter
 # https://dev.twitter.com/apps/new).
 use OmniAuth::Strategies::Twitter, '7RdGp1L2JBuft2VAghng', 'rJe7eHZbYsXOX0bhs8EP9AznxqhU8utU4OqyePZHJU'
 
@@ -7,11 +7,6 @@ use OmniAuth::Strategies::Twitter, '7RdGp1L2JBuft2VAghng', 'rJe7eHZbYsXOX0bhs8EP
 enable :sessions
 
 helpers do
-
-  # Is user currently logged in
-	def current_user
-		@current_user ||= User.get(session[:user_id]) if session[:user_id]
-	end
 
   # Redirect to last page or root
   def redirect_last
@@ -21,12 +16,12 @@ helpers do
       redirect redirect_url
     else
       redirect "/"
-    end  
+    end
   end
 
   # Transforms the request body into JSON.
   def json_data
     JSON.parse(request.body.read)
   end
-    
+
 end
