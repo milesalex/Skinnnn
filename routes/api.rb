@@ -52,15 +52,7 @@ class Api < Sinatra::Base
 
   end
 
-  ## update user???
-  ## var url = "/api/user/" + uid;
-  ## type: 'PUT'
   put '/api/users/:id' do
     puts '------ PUT user ------'
   end
-
-
-  ## Delete account
-  ## var url = "/api/user/" + uid + '/' + e.data.link.id;
-  ## type: 'DELETE'
 end
