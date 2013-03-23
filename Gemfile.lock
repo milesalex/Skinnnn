@@ -76,6 +76,7 @@ DEPENDENCIES
   dm-postgres-adapter
   dm-serializer
   dm-sqlite-adapter
+  json
   omniauth
   omniauth-twitter
   pry

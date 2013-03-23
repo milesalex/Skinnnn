@@ -8,12 +8,13 @@ gem "dm-serializer"
 gem "dm-constraints"
 gem "route_downcaser"
 gem "sinatra"
+gem "json"
 gem "slim"
 gem "sass"
-gem "pry"
 
 group :development do
   gem 'dm-sqlite-adapter'
+  gem "pry"
 end
 
 group :production do
