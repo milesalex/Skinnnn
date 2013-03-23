@@ -1,8 +1,8 @@
 .cover
-.content
+.content data-current-profile="#{user.id}"
   .content-wrap
-    h1.name #{user.name}
-    p.description #{user.bio}
+    h1.name data-attr="name" #{user.name}
+    p.description data-attr="bio" #{user.bio}
     ul
       - user.links.each do |link|
         li

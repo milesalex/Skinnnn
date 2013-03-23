@@ -11,41 +11,55 @@ $(function(){
 
   var EditView = Backbone.View.extend({
     el: $('body'),
-
     makeEditable: function(){
-      // Test if user is logged in
-      // There should be a safer way to do this
-      if ( $(this.el).hasClass('logged-in') ){
-        // Add contenteditable attr to elements
+      var currentUser = $('body').data('current-user'); // Get current user id
+      var currentProfile = $('.content').data('current-profile'); // the id of the users profile that is in view
+
+      if ( currentUser === currentProfile ){
+        console.log('same user');
+        // // Add contenteditable attr to elements
         $('h1.name').attr( 'contenteditable', 'true' );
         $('p.description').attr( 'contenteditable', 'true' );
-        // Enable saveOnBlur
-        this.saveOnBlur();
       } else {
         // User is logged out
-        console.log('NOT logged in');
+        console.log('different user');
       }
     },
+    saveOnBlur: function(elm){
+      var user_id = $('body').data('current-user');
+      var attr = $(elm.currentTarget).data('attr');
+      var value = $(elm.currentTarget).text();
+      var user = new UserModel({id: user_id});
 
-    saveOnBlur: function(){
-      $('p.description').blur(function(){
-        console.log('save now');
-        var user_id = $('body').data('user-id');
-        var user = new UserModel({id: user_id});
-        user.fetch({
-          success: function (user) {
-            console.log(user.toJSON());
-          }
-        });
+      var arr = {};
+      if (attr == 'name') {
+        arr = { name: value };
+      } else if (attr == 'bio') {
+        arr = { bio: value };
+      }
+      
+      console.log(arr);
+
+      user.save( arr, {
+        success: function (user) {
+          alert(user.toJSON());
+        }
       });
+      // user.fetch({
+      //   success: function (user) {
+      //     console.log(user.toJSON());
+      //   }
+      // });
     },
-
+    events: {
+      'blur .name' : 'saveOnBlur',
+      'blur .description' : 'saveOnBlur'
+    },
     initialize: function(){
       _.bindAll(this, 'render');
       this.makeEditable();
       this.render();
     },
-
     render: function(){
       // $(this.el).prepend('works');
     }
