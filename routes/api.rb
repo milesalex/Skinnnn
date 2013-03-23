@@ -2,6 +2,7 @@ class Api < Sinatra::Base
 
   before '/api*' do
     content_type 'application/json'
+    @current_user ||= User.get(session[:user_id]) if session[:user_id]
   end
 
   # get '/api/users' do
