@@ -5,11 +5,13 @@ class Api < Sinatra::Base
     @current_user ||= User.get(session[:user_id]) if session[:user_id]
   end
 
-  # get '/api/users' do
-  #   users = User.all
-  #   users.to_json
-  # end
+  get '/api/users' do
+    raise 403 unless @current_user.id == 1
+    users = User.all
+    users.to_json
+  end
 
+  # USERS
   get '/api/users/:id' do
     user = User.get(params[:id])
     user.to_json(:relationships=>{:profile=>{:methods=>[:links]}})
@@ -21,8 +23,24 @@ class Api < Sinatra::Base
   end
 
   put '/api/users/:id' do
-    raise 403 unless @current_user.id == session[:user_id]
+    raise 403 unless @current_user.id == id
     @current_user.update(JSON.parse(request.body.read))
+  end
+
+  # LINKS
+  put '/api/users/:id/link/:link_id' do
+    raise 403 unless @current_user.id == id
+    link = @current_user.links.first(id: link_id)
+    link.update(JSON.parse(request.body.read))
+
+    # fix the linked list style sorting of links
+    next_link = @current_user.links.first(previous_link_id: updated_link.previous_link_id)
+    next_link.update(previous_link_id: link.id)
+  end
+
+  post '/api/users/:id/links' do
+    raise 403 unless @current_user.id == id
+    @current_user.links.create(JSON.parse(request.body.read))
   end
 
   get '/api/auth/logged_in' do
@@ -31,18 +49,6 @@ class Api < Sinatra::Base
     else
       status 400
     end
-  end
-
-  put '/api/users/:id/link/:link_id' do
-    user = User.get(params[:id])
-  end
-
-  post '/api/users/:id/links' do
-    puts '----- works ------'
-    ## puts params[:id]
-    user = User.get(params[:id])
-    user.to_json(:relationships=>{:profile=>{:methods=>[:links]}})
-    link = user.profile.links.create(:name => 'Travel Blog', :url => 'travel.alexmilesdesign.com')
   end
 
 end
