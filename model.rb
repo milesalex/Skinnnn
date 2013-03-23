@@ -16,10 +16,10 @@ end
 
 class Link
   include DataMapper::Resource
-  property :id,            Serial
-  property :name,          String
-  property :url,           String
-  property :previous_link, Integer
+  property :id,               Serial
+  property :name,             String
+  property :url,              String
+  property :previous_link_id, Integer
 
   belongs_to :user
 end
