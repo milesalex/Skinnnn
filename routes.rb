@@ -1,5 +1,3 @@
-# API ROUTES
-
 use SassEngine
 use Authentication
 use Api
