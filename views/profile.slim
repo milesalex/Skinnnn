@@ -3,11 +3,18 @@
   .content-wrap
     h1.name.editable data-attr="name" #{user.name}
     p.description.editable data-attr="bio" #{user.bio}
-    input.hidden 
-    ul.links
-      - user.links.each do |link|
-        li
-          a.editable target="_blank" href=link.url #{link.name}
+    input.hidden
+    div.links
+      ul
+        - user.links.each do |link|
+          li
+            a.editable target="_blank" href=link.url #{link.name}
+      - if @current_user
+        ul.new-link-form
+          li
+            input.name placeholder="Name"
+          li
+            input.url placeholder="URL"
 
 ul.nav
   li

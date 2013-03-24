@@ -12,6 +12,18 @@ html, body
   @media screen and (max-width: $break)
     height: auto
 
+a
+  color: #000
+  text-decoration: none
+
+a:hover
+  text-decoration: underline
+
+ul, li
+  list-style-type: none
+  margin: 0
+  padding: 0
+
 .content, .cover
   height: 100%
   
@@ -68,8 +80,12 @@ p.description
   max-width: 450px
   resize: none
 
-h1.name, p.description, ul.links
+h1.name, p.description, div.links
   border-radius: 3px
+
+.new-link-form
+  li
+    display: inline
 
 .editable
   -webkit-transition: all .1s ease-in-out
@@ -88,19 +104,6 @@ h1.name, p.description, ul.links
 .hidden
   position: absolute
   left: 9999px
-
-a
-  color: #000
-  text-decoration: none
-
-a:hover
-  text-decoration: underline
-
-
-ul, li
-  list-style-type: none
-  margin: 0
-  padding: 0
 
 .status
   position: fixed
