@@ -41,6 +41,12 @@ $(function(){
       });
     },
 
+    focused: function(elm){
+      console.log('fade');
+      $(elm.currentTarget).addClass('active');
+      $('.editable').addClass('faded');
+    },
+
     sanitizeOnPaste: function(elm){
       /* Sanitize text after user pastes rich html
          ----
@@ -53,12 +59,6 @@ $(function(){
       console.log(elm);
       var strip = $('.hidden').val();
       $('.description').text(strip);
-    },
-
-    focused: function(elm){
-      console.log('fade');
-      $(elm.currentTarget).addClass('active');
-      $('.editable').addClass('faded');
     },
 
     events: {
