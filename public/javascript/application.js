@@ -15,7 +15,9 @@ $(function(){
       var currentUser = $('body').data('current-user'); // Get current user id
       var currentProfile = $('.content').data('current-profile'); // the id of the users profile that is in view
       if ( currentUser === currentProfile ){
+        $('.name').attr( 'contenteditable', 'true');
         $('.description').attr( 'contenteditable', 'true' );
+
       }
     },
     saveOnBlur: function(elm){
@@ -38,7 +40,7 @@ $(function(){
       });
     },
 
-    onPaste: function(elm){
+    sanitizeOnPaste: function(elm){
       /* Sanitize text after user pastes rich html
          ----
          Catch any input event and pipe the text through 
@@ -47,14 +49,16 @@ $(function(){
          into the original div. */
 
       $('.hidden').val(elm.currentTarget.innerText);
+      console.log(elm);
       var strip = $('.hidden').val();
       $('.description').text(strip);
     },
 
     events: {
       'blur .name' : 'saveOnBlur',
-      'blur .description' : 'saveOnBlur',
-      'input .description' : 'onPaste'
+      'blur .description' : 'saveOnBlur'
+      // 'input .name' : 'sanitizeOnPaste',
+      // 'input .description' : 'sanitizeOnPaste'
     },
 
     initialize: function(){
@@ -62,7 +66,7 @@ $(function(){
       this.makeEditable();
       this.render();
     },
-    
+
     render: function(){
       // $(this.el).prepend('works');
     }
