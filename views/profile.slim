@@ -9,17 +9,17 @@
         li
           a.editable target="_blank" href=link.url #{link.name}
 
-  ul.nav
+ul.nav
+  li
+    a href="/" home
+  - if @current_user
     li
-      a href="/" home
-    - if @current_user
-      li
-        a href="/sign_out/" sign out
-      li
-        a href="/#{@current_user.nickname}" Hello #{@current_user.nickname}
-    - else
-      li
-        a href="/sign_in/" sign in
+      a href="/sign_out/" sign out
+    li
+      a href="/#{@current_user.nickname}" Hello #{@current_user.nickname}
+  - else
+    li
+      a href="/sign_in/" sign in
 
 
 
