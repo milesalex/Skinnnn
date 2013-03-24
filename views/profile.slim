@@ -3,6 +3,7 @@
   .content-wrap
     h1.name data-attr="name" #{user.name}
     p.description data-attr="bio" #{user.bio}
+    input.hidden 
     ul
       - user.links.each do |link|
         li

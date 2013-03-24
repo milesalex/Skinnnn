@@ -14,15 +14,8 @@ $(function(){
     makeEditable: function(){
       var currentUser = $('body').data('current-user'); // Get current user id
       var currentProfile = $('.content').data('current-profile'); // the id of the users profile that is in view
-
       if ( currentUser === currentProfile ){
-        console.log('same user');
-        // // Add contenteditable attr to elements
-        $('h1.name').attr( 'contenteditable', 'true' );
-        $('p.description').attr( 'contenteditable', 'true' );
-      } else {
-        // User is logged out
-        console.log('different user');
+        $('.description').attr( 'contenteditable', 'true' );
       }
     },
     saveOnBlur: function(elm){
@@ -37,29 +30,39 @@ $(function(){
       } else if (attr == 'bio') {
         arr = { bio: value };
       }
-      
-      console.log(arr);
 
       user.save( arr, {
         success: function (user) {
           alert(user.toJSON());
         }
       });
-      // user.fetch({
-      //   success: function (user) {
-      //     console.log(user.toJSON());
-      //   }
-      // });
     },
+
+    onPaste: function(elm){
+      /* Sanitize text after user pastes rich html
+         ----
+         Catch any input event and pipe the text through 
+         a hidden text area. This strips all formatting.
+         After formatting is stripped, place the text 
+         into the original div. */
+
+      $('.hidden').val(elm.currentTarget.innerText);
+      var strip = $('.hidden').val();
+      $('.description').text(strip);
+    },
+
     events: {
       'blur .name' : 'saveOnBlur',
-      'blur .description' : 'saveOnBlur'
+      'blur .description' : 'saveOnBlur',
+      'input .description' : 'onPaste'
     },
+
     initialize: function(){
       _.bindAll(this, 'render');
       this.makeEditable();
       this.render();
     },
+    
     render: function(){
       // $(this.el).prepend('works');
     }
