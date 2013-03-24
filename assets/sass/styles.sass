@@ -7,6 +7,7 @@ html, body
   margin: 0 auto
   line-height: 1.3
   font-size: 15px
+  overflow: hidden
   -webkit-font-smoothing: antialiased
   @media screen and (max-width: $break)
     height: auto
@@ -14,7 +15,6 @@ html, body
 .content, .cover
   height: 100%
   
-
 .content
   width: 60%
   float: left
@@ -40,22 +40,42 @@ html, body
     margin: 20px
 
 .nav
-  display: none
+  .li
+    display: inline
 
-h1
+h1.name
   font-size: 34px
   margin: 0
   margin-bottom: 0px
+  letter-spacing: -1px
 
-p, .description
+p.description
   font-family: "EB Garamond", serif
   font-size: 26px
   color: #808080
   margin: 0
   margin-bottom: 50px
   font-weight: 300
-  width: 450px
+  max-width: 450px
   resize: none
+
+h1.name, p.description, ul.links
+  padding: 5px 10px
+  border-radius: 3px
+
+.editable
+  -webkit-transition: all .1s ease-in-out
+  -moz-transition: all .1s ease-in-out
+  -ms-transition: all .1s ease-in-out
+  -o-transition: all .1s ease-in-out
+  transition: all .1s ease-in-out
+
+.faded:not(.active) 
+  opacity: 0.2
+
+.name:focus, .description:focus 
+  // background: #e8e8e8
+  outline: none
 
 .hidden
   position: absolute

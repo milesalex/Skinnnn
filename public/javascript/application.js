@@ -17,10 +17,11 @@ $(function(){
       if ( currentUser === currentProfile ){
         $('.name').attr( 'contenteditable', 'true');
         $('.description').attr( 'contenteditable', 'true' );
-
       }
     },
     saveOnBlur: function(elm){
+      $('.editable').removeClass('faded');
+      $('.editable').removeClass('active');
       var user_id = $('body').data('current-user');
       var attr = $(elm.currentTarget).data('attr');
       var value = $(elm.currentTarget).text();
@@ -54,9 +55,16 @@ $(function(){
       $('.description').text(strip);
     },
 
+    focused: function(elm){
+      console.log('fade');
+      $(elm.currentTarget).addClass('active');
+      $('.editable').addClass('faded');
+    },
+
     events: {
       'blur .name' : 'saveOnBlur',
-      'blur .description' : 'saveOnBlur'
+      'blur .description' : 'saveOnBlur',
+      'focus .editable' : 'focused'
       // 'input .name' : 'sanitizeOnPaste',
       // 'input .description' : 'sanitizeOnPaste'
     },

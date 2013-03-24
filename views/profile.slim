@@ -1,13 +1,13 @@
-.cover
+.cover.editable
 .content data-current-profile="#{user.id}"
   .content-wrap
-    h1.name data-attr="name" #{user.name}
-    p.description data-attr="bio" #{user.bio}
+    h1.name.editable data-attr="name" #{user.name}
+    p.description.editable data-attr="bio" #{user.bio}
     input.hidden 
-    ul
+    ul.links
       - user.links.each do |link|
         li
-          a target="_blank" href=link.url #{link.name}
+          a.editable target="_blank" href=link.url #{link.name}
 
   ul.nav
     li
@@ -16,8 +16,7 @@
       li
         a href="/sign_out/" sign out
       li
-        a href="/#{@current_user.nickname}"
-          Hello #{@current_user.nickname}
+        a href="/#{@current_user.nickname}" Hello #{@current_user.nickname}
     - else
       li
         a href="/sign_in/" sign in
