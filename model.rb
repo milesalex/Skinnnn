@@ -8,7 +8,7 @@ class User
   property :nickname,   String
   property :email,      String
   property :bio,        String
-  property :city,        String
+  property :city,       String
   property :created_at, DateTime
 
   has n, :links, :constraint => :destroy
@@ -16,12 +16,13 @@ end
 
 class Link
   include DataMapper::Resource
-  property :id,    Serial
-  property :name,  String
-  property :url,   String
+  property :id,               Serial
+  property :name,             String
+  property :url,              String
+  property :previous_link_id, Integer
+
   belongs_to :user
 end
-
 
 DataMapper.finalize
 DataMapper.auto_upgrade!
