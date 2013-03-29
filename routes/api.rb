@@ -28,6 +28,12 @@ class Api < Sinatra::Base
   end
 
   # LINKS
+  get '/api/users/:id/link/' do
+    raise 403 unless @current_user.id == id
+    links = @current_user.links
+    put link
+  end
+
   put '/api/users/:id/link/:link_id' do
     raise 403 unless @current_user.id == id
     link = @current_user.links.first(id: link_id)
