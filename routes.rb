@@ -13,7 +13,7 @@ end
 
 get '/' do
   home = User.new(name: "Skinnnn", nickname: "home", email: "hi@skinnnn.com",
-                  bio: "A minimal about me application", city: "Berlin")
+                  bio: "Show who you are.", city: "Berlin")
 
   # home.profile   = Profile.new(bio: "Got Skinnnn?", city: "Berlin")
   twitter_signup = Link.new(name: "Sign up with Twitter", url: "/sign_in")
@@ -34,7 +34,6 @@ get '/randommmm/?' do
   user = User.get(id)
   redirect "/#{user.nickname}"
 end
-
 
 get '/:nickname/?' do
   user = User.first(:nickname => params[:nickname])
