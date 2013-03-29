@@ -29,6 +29,12 @@ get '/people/?' do
   slim :people, :locals => { users: users }
 end
 
+get '/randommmm/?' do
+  id = rand(User.count) + 1
+  user = User.get(id)
+  redirect "/#{user.nickname}"
+end
+
 
 get '/:nickname/?' do
   user = User.first(:nickname => params[:nickname])
