@@ -23,20 +23,20 @@ class Api < Sinatra::Base
   end
 
   put '/api/users/:id' do
-    raise 403 unless @current_user.id == id
+    raise 403 unless @current_user.id == params[:id]
     @current_user.update(JSON.parse(request.body.read))
   end
 
   # LINKS
   get '/api/users/:id/links/' do
-    raise 403 unless @current_user.id == id
+    raise 403 unless @current_user.id == params[:id]
     links = @current_user.links
     put link
   end
 
-  put '/api/users/:id/links/:link_id' do
-    raise 403 unless @current_user.id == id
-    link = @current_user.links.first(id: link_id)
+  put '/api/users/:id/link/:link_id' do
+    raise 403 unless @current_user.id == params[:id]
+    link = @current_user.links.first(id: params[:link_id])
     link.update(JSON.parse(request.body.read))
 
     # fix the linked list style sorting of links
@@ -45,7 +45,7 @@ class Api < Sinatra::Base
   end
 
   post '/api/users/:id/links' do
-    raise 403 unless @current_user.id == id
+    raise 403 unless @current_user.id == params[:id]
     @current_user.links.create(JSON.parse(request.body.read))
   end
 
