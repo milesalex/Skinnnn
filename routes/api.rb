@@ -28,10 +28,10 @@ class Api < Sinatra::Base
   end
 
   # LINKS
-  get '/api/users/:id/links/' do
+  get '/api/users/:id/links' do
     raise 403 unless @current_user.id == params[:id]
     links = @current_user.links
-    put link
+    links.to_json
   end
 
   put '/api/users/:id/link/:link_id' do
