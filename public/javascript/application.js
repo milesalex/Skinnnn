@@ -1,13 +1,14 @@
 $(function(){
 
   var UserModel = Backbone.Model.extend({
-    urlRoot: '/api/users'
+    urlRoot: '/api/users',
+    initialize: function(){
+      this.links = new LinkModel();
+      this.links.url = '/api/users/' + this.id + '/links';
+    }
   });
 
-  var Users = Backbone.Collection.extend({
-    model: UserModel,
-    url: '/api/users'
-  });
+  var LinkModel = Backbone.Model.extend({});
 
   var EditView = Backbone.View.extend({
     el: $('body'),
@@ -19,6 +20,7 @@ $(function(){
         $('.description').attr( 'contenteditable', 'true' );
       }
     },
+
     saveOnBlur: function(elm){
       $('.editable').removeClass('faded');
       $('.editable').removeClass('active');
@@ -41,6 +43,26 @@ $(function(){
       });
     },
 
+    saveLink: function(){
+      var user_id = $('body').data('current-user');
+      var user = new UserModel({id: user_id});
+
+      var name = $('.new-link-form .name').val();
+      var url = $('.new-link-form .url').val();
+
+      var arr = {
+        name: name,
+        url: url
+      };
+
+      user.links.save( arr, {
+        success: function (links) {
+          console.log(links.toJSON());
+        }
+      });
+
+    },
+
     focused: function(elm){
       console.log('fade');
       $(elm.currentTarget).addClass('active');
@@ -50,9 +72,9 @@ $(function(){
     sanitizeOnPaste: function(elm){
       /* Sanitize text after user pastes rich html
          ----
-         Catch any input event and pipe the text through 
+         Catch any input event and pipe the text through
          a hidden text area. This strips all formatting.
-         After formatting is stripped, place the text 
+         After formatting is stripped, place the text
          into the original div. */
 
       $('.hidden').val(elm.currentTarget.innerText);
@@ -62,11 +84,10 @@ $(function(){
     },
 
     events: {
-      'blur .name' : 'saveOnBlur',
-      'blur .description' : 'saveOnBlur',
-      'focus .editable' : 'focused'
-      // 'input .name' : 'sanitizeOnPaste',
-      // 'input .description' : 'sanitizeOnPaste'
+      'blur h1.name' : 'saveOnBlur',
+      'blur p.description' : 'saveOnBlur',
+      'focus .editable' : 'focused',
+      'blur .input' : 'saveLink'
     },
 
     initialize: function(){
