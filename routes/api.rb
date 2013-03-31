@@ -29,13 +29,13 @@ class Api < Sinatra::Base
 
   # LINKS
   get '/api/users/:id/links' do
-    raise 403 unless @current_user.id == params[:id]
+    # raise 403 unless @current_user.id == params[:id]
     links = @current_user.links
     links.to_json
   end
 
   put '/api/users/:id/link/:link_id' do
-    raise 403 unless @current_user.id == params[:id]
+    # raise 403 unless @current_user.id == params[:id]
     link = @current_user.links.first(id: params[:link_id])
     link.update(JSON.parse(request.body.read))
 
@@ -45,7 +45,7 @@ class Api < Sinatra::Base
   end
 
   post '/api/users/:id/links' do
-    raise 403 unless @current_user.id == params[:id]
+    # raise 403 unless @current_user.id == params[:id]
     @current_user.links.create(JSON.parse(request.body.read))
   end
 
