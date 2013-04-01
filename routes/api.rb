@@ -36,12 +36,12 @@ class Api < Sinatra::Base
 
   put '/api/users/:id/links/:link_id' do
     halt 403 unless @current_user.id == params[:id]
-    link = @current_user.links.first(id: params[:link_id])
+    link = @current_user.links.first(:id => params[:link_id])
     link.update(JSON.parse(request.body.read))
 
     # fix the linked list style sorting of links
-    next_link = @current_user.links.first(previous_link_id: updated_link.previous_link_id)
-    next_link.update(previous_link_id: link.id)
+    next_link = @current_user.links.first(:previous_link_id => updated_link.previous_link_id)
+    next_link.update(:previous_link_id => link.id)
   end
 
   post '/api/users/:id/links' do
