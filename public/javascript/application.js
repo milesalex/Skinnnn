@@ -10,8 +10,44 @@ $(function(){
 
   var LinkModel = Backbone.Model.extend({});
 
+  var LinkCollection = Backbone.Collection.extend({
+    model: LinkModel
+  });
+
   var EditView = Backbone.View.extend({
     el: $('body'),
+
+    events: {
+      'blur h1.name' : 'saveOnBlur',
+      'blur p.description' : 'saveOnBlur',
+      'focus .editable' : 'focused',
+      'click button.add' : 'addLink'
+    },
+
+    initialize: function(){
+      _.bindAll(this, 'render', 'makeEditable', 'addLink', 'appendLink');
+
+      this.collection = new LinkCollection();
+      // this.collection.fetch({
+      //   success: function(data){
+      //     console.log(data);
+      //   }
+      // });
+
+      this.collection.bind('add', this.appendLink);
+
+      this.render();
+    },
+
+    render: function(){
+      var self = this;
+      this.makeEditable();
+      _(this.collection.models).each(function(link){
+        self.appendLink(link);
+      }, this);
+
+    },
+
     makeEditable: function(){
       var currentUser = $('body').data('current-user'); // Get current user id
       var currentProfile = $('.content').data('current-profile'); // the id of the users profile that is in view
@@ -28,14 +64,12 @@ $(function(){
       var attr = $(elm.currentTarget).data('attr');
       var value = $(elm.currentTarget).text();
       var user = new UserModel({id: user_id});
-
       var arr = {};
       if (attr == 'name') {
         arr = { name: value };
       } else if (attr == 'bio') {
         arr = { bio: value };
       }
-
       user.save( arr, {
         success: function (user) {
           alert(user.toJSON());
@@ -43,24 +77,37 @@ $(function(){
       });
     },
 
-    saveLink: function(){
-      var user_id = $('body').data('current-user');
-      var user = new UserModel({id: user_id});
+    addLink: function(){
 
-      var name = $('.new-link-form .name').val();
-      var url = $('.new-link-form .url').val();
+      var linkName = $('.new-link-form .name').val();
+      var linkURL = $('.new-link-form .url').val();
+      var link = new LinkModel();
 
-      var arr = {
-        name: name,
-        url: url
-      };
-
-      user.links.save( arr, {
-        success: function (links) {
-          console.log(links.toJSON());
-        }
+      link.set({
+        name: linkName,
+        url: linkURL
       });
 
+      this.collection.add(link);
+
+      console.log(this.collection);
+
+      // var user_id = $('body').data('current-user');
+      // var user = new UserModel({id: user_id});
+
+      // var arr = {
+      //   name: name,
+      //   url: url
+      // };
+      // user.links.save( arr, {
+      //   success: function (links) {
+      //     console.log(links.toJSON());
+      //   }
+      // });
+    },
+
+    appendLink: function(link){
+      $('.links', this.el).append("<li><a class='editable' target='blank' data-id=" + link.get('id') + " href=" + link.get('url') + ">" + link.get('name') + "</a></li>");
     },
 
     focused: function(elm){
@@ -81,24 +128,8 @@ $(function(){
       console.log(elm);
       var strip = $('.hidden').val();
       $('.description').text(strip);
-    },
-
-    events: {
-      'blur h1.name' : 'saveOnBlur',
-      'blur p.description' : 'saveOnBlur',
-      'focus .editable' : 'focused',
-      'blur .input' : 'saveLink'
-    },
-
-    initialize: function(){
-      _.bindAll(this, 'render');
-      this.makeEditable();
-      this.render();
-    },
-
-    render: function(){
-      // $(this.el).prepend('works');
     }
+
   });
 
   var editView = new EditView();
