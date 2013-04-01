@@ -16,8 +16,8 @@ $(function(){
       var currentUser = $('body').data('current-user'); // Get current user id
       var currentProfile = $('.content').data('current-profile'); // the id of the users profile that is in view
       if ( currentUser === currentProfile ){
-        $('.name').attr( 'contenteditable', 'true');
-        $('.description').attr( 'contenteditable', 'true' );
+        $('h1.name').attr( 'contenteditable', 'true');
+        $('p.description').attr( 'contenteditable', 'true' );
       }
     },
 
