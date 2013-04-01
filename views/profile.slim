@@ -9,11 +9,6 @@
         - user.links.each do |link|
           li
             a.editable data-id="#{link.id}" target="_blank" href=link.url #{link.name}
-            / - if @current_user
-            /   span.actions
-            /     a.edit href="#" edit
-            /     a.save href="#" save
-            /     a.delete href="#" delete
 
       - if @current_user
         ul.new-link-form
