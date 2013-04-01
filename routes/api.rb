@@ -34,7 +34,7 @@ class Api < Sinatra::Base
     links.to_json
   end
 
-  put '/api/users/:id/link/:link_id' do
+  put '/api/users/:id/links/:link_id' do
     halt 403 unless @current_user.id == params[:id]
     link = @current_user.links.first(id: params[:link_id])
     link.update(JSON.parse(request.body.read))
