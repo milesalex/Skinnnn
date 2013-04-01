@@ -17,9 +17,17 @@ $(function(){
 
   var LinkView = Backbone.View.extend({
     tagName: 'li',
+
+    events: {
+      'click a.delete' : 'delete',
+      'click a.edit' : 'edit',
+      'click a.save' : 'save'
+    },
+
     initialize: function(){
       _.bindAll(this, 'render');
     },
+
     render: function(){
       $(this.el).html(
         '<a class="editable" target="_blank" href="' + this.model.get('url') + '">' + this.model.get('name') +' </a>' +
@@ -93,12 +101,10 @@ $(function(){
       var linkURL = $('.new-link-form .url').val();
       var link = new LinkModel();
 
-      link.set({
+      this.collection.create({
         name: linkName,
         url: linkURL
       });
-
-      this.collection.add(link);
 
     },
 
