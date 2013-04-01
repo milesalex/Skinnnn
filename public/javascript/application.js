@@ -21,7 +21,10 @@ $(function(){
       _.bindAll(this, 'render');
     },
     render: function(){
-      $(this.el).html('<a class="editable" target="_blank" href="' + this.model.get('url') + '">' + this.model.get('name') +' </a>');
+      $(this.el).html(
+        '<a class="editable" target="_blank" href="' + this.model.get('url') + '">' + this.model.get('name') +' </a>' +
+        '<span class="actions"><a class="edit">edit</a><a class="save">save</a><a class="delete">delete</a></span>'
+      );
       return this;
     }
   });
@@ -38,21 +41,11 @@ $(function(){
 
     initialize: function(){
       _.bindAll(this, 'render', 'makeEditable', 'addLink', 'appendLink');
-
       var user_id = $('body').data('current-user');
       this.user = new UserModel({id: user_id});
-
-      // this.collection = new LinkCollection();
       this.collection = this.user.links;
-
-      this.collection.fetch({
-        reset: true,
-        success: function(data){
-          console.log(data);
-        }
-      });
-
       this.collection.bind('add', this.appendLink);
+      this.collection.fetch();
       this.render();
     },
 
@@ -62,7 +55,6 @@ $(function(){
       _(this.collection.models).each(function(link){
         self.appendLink(link);
       }, this);
-
     },
 
     makeEditable: function(){
@@ -71,6 +63,7 @@ $(function(){
       if ( currentUser === currentProfile ){
         $('h1.name').attr( 'contenteditable', 'true');
         $('p.description').attr( 'contenteditable', 'true' );
+        $('ul.links').empty();
       }
     },
 
@@ -107,18 +100,6 @@ $(function(){
 
       this.collection.add(link);
 
-      // var user_id = $('body').data('current-user');
-      // var user = new UserModel({id: user_id});
-
-      // var arr = {
-      //   name: name,
-      //   url: url
-      // };
-      // user.links.save( arr, {
-      //   success: function (links) {
-      //     console.log(links.toJSON());
-      //   }
-      // });
     },
 
     appendLink: function(link){
