@@ -49,6 +49,12 @@ class Api < Sinatra::Base
     @current_user.links.create(JSON.parse(request.body.read))
   end
 
+  delete '/api/users/:id/links/:link_id' do
+    halt 403 unless @current_user.id == params[:id]
+    link = @current_user.links.first(:id => params[:link_id])
+    link.destroy
+  end
+
   get '/api/auth/logged_in' do
     if @current_user
       status 200
