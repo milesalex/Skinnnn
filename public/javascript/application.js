@@ -15,6 +15,17 @@ $(function(){
     model: LinkModel
   });
 
+  var LinkView = Backbone.View.extend({
+    tagName: 'li',
+    initialize: function(){
+      _.bindAll(this, 'render');
+    },
+    render: function(){
+      $(this.el).html('<a class="editable" target="_blank" href="' + this.model.get('url') + '">' + this.model.get('name') +' </a>');
+      return this;
+    }
+  });
+
   var EditView = Backbone.View.extend({
     el: $('body'),
 
@@ -40,7 +51,6 @@ $(function(){
           console.log(data);
         }
       });
-
 
       this.collection.bind('add', this.appendLink);
       this.render();
@@ -112,23 +122,25 @@ $(function(){
     },
 
     appendLink: function(link){
-      // console.log(link.cid);
-      $('.links', this.el).append("<li><a class='editable' target='blank' data-id=" + link.cid + " href=" + link.get('url') + ">" + link.get('name') + "</a></li>");
+      var linkView = new LinkView({
+        model: link
+      });
+
+      $('.links', this.el).append(linkView.render().el);
     },
 
     focused: function(elm){
-      // console.log('fade');
       $(elm.currentTarget).addClass('active');
       $('.editable').addClass('faded');
     },
 
     sanitizeOnPaste: function(elm){
-      /* Sanitize text after user pastes rich html
-         ----
-         Catch any input event and pipe the text through
-         a hidden text area. This strips all formatting.
-         After formatting is stripped, place the text
-         into the original div. */
+    /* Sanitize text after user pastes rich html
+       ----
+       Catch any input event and pipe the text through
+       a hidden text area. This strips all formatting.
+       After formatting is stripped, place the text
+       into the original div. */
 
       $('.hidden').val(elm.currentTarget.innerText);
       console.log(elm);
