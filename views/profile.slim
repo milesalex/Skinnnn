@@ -4,16 +4,16 @@
     h1.name.editable data-attr="name" #{user.name}
     p.description.editable data-attr="bio" #{user.bio}
     input.hidden
-    div.links
-      ul
+    div.link-collection
+      ul.links
         - user.links.each do |link|
           li
             a.editable data-id="#{link.id}" target="_blank" href=link.url #{link.name}
-            - if @current_user
-              span.actions
-                a.edit href="#" edit
-                a.save href="#" save
-                a.delete href="#" delete
+            / - if @current_user
+            /   span.actions
+            /     a.edit href="#" edit
+            /     a.save href="#" save
+            /     a.delete href="#" delete
 
       - if @current_user
         ul.new-link-form
@@ -21,6 +21,8 @@
             input.name.input placeholder="Name"
           li
             input.url.input placeholder="URL"
+          li
+            button.add add link
 
 ul.nav
   li

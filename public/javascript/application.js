@@ -3,8 +3,9 @@ $(function(){
   var UserModel = Backbone.Model.extend({
     urlRoot: '/api/users',
     initialize: function(){
-      this.links = new LinkModel();
+      this.links = new LinkCollection();
       this.links.url = '/api/users/' + this.id + '/links';
+      // this.links.on("reset", this.updateCounts);
     }
   });
 
@@ -27,15 +28,21 @@ $(function(){
     initialize: function(){
       _.bindAll(this, 'render', 'makeEditable', 'addLink', 'appendLink');
 
-      this.collection = new LinkCollection();
-      // this.collection.fetch({
-      //   success: function(data){
-      //     console.log(data);
-      //   }
-      // });
+      var user_id = $('body').data('current-user');
+      this.user = new UserModel({id: user_id});
+
+      // this.collection = new LinkCollection();
+      this.collection = this.user.links;
+
+      this.collection.fetch({
+        reset: true,
+        success: function(data){
+          console.log(data);
+        }
+      });
+
 
       this.collection.bind('add', this.appendLink);
-
       this.render();
     },
 
@@ -90,8 +97,6 @@ $(function(){
 
       this.collection.add(link);
 
-      console.log(this.collection);
-
       // var user_id = $('body').data('current-user');
       // var user = new UserModel({id: user_id});
 
@@ -107,11 +112,12 @@ $(function(){
     },
 
     appendLink: function(link){
-      $('.links', this.el).append("<li><a class='editable' target='blank' data-id=" + link.get('id') + " href=" + link.get('url') + ">" + link.get('name') + "</a></li>");
+      // console.log(link.cid);
+      $('.links', this.el).append("<li><a class='editable' target='blank' data-id=" + link.cid + " href=" + link.get('url') + ">" + link.get('name') + "</a></li>");
     },
 
     focused: function(elm){
-      console.log('fade');
+      // console.log('fade');
       $(elm.currentTarget).addClass('active');
       $('.editable').addClass('faded');
     },
