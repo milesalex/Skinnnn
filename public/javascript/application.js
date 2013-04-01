@@ -19,13 +19,14 @@ $(function(){
     tagName: 'li',
 
     events: {
-      'click a.delete' : 'delete',
+      'click a.delete' : 'destroy',
       'click a.edit' : 'edit',
       'click a.save' : 'save'
     },
 
     initialize: function(){
       _.bindAll(this, 'render');
+      this.listenTo(this.model, 'destroy', this.remove);
     },
 
     render: function(){
@@ -34,6 +35,22 @@ $(function(){
         '<span class="actions"><a class="edit">edit</a><a class="save">save</a><a class="delete">delete</a></span>'
       );
       return this;
+    },
+
+    destroy: function(){
+      this.model.destroy({
+        success: function(data){
+          console.log(data);
+        }
+      });
+    },
+
+    edit: function(){
+
+    },
+
+    save: function(){
+
     }
   });
 
