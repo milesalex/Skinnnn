@@ -26,7 +26,7 @@ ul, li
 
 .content, .cover
   height: 100%
-  
+
 .content
   width: 60%
   float: left
@@ -94,12 +94,18 @@ h1.name, p.description, div.links
   -o-transition: all .1s ease-in-out
   transition: all .1s ease-in-out
 
-.faded:not(.active) 
+.faded:not(.active)
   opacity: 0.2
 
-.name:focus, .description:focus 
+h1.name:focus, p.description:focus
   // background: #e8e8e8
   outline: none
+
+.actions
+  margin-left: 10px
+  a
+    margin-right: 5px
+    color: blue
 
 .hidden
   position: absolute
