@@ -23,19 +23,19 @@ class Api < Sinatra::Base
   end
 
   put '/api/users/:id' do
-    halt 403 unless @current_user.id == params[:id]
+    halt 403 unless @current_user.id == params[:id].to_i
     @current_user.update(JSON.parse(request.body.read))
   end
 
   # LINKS
   get '/api/users/:id/links' do
-    halt 403 unless @current_user.id == params[:id]
+    halt 403 unless @current_user.id == params[:id].to_i
     links = @current_user.links
     links.to_json
   end
 
   put '/api/users/:id/links/:link_id' do
-    halt 403 unless @current_user.id == params[:id]
+    halt 403 unless @current_user.id == params[:id].to_i
     link = @current_user.links.first(:id => params[:link_id])
     link.update(JSON.parse(request.body.read))
 
@@ -45,12 +45,12 @@ class Api < Sinatra::Base
   end
 
   post '/api/users/:id/links' do
-    halt 403 unless @current_user.id == params[:id]
+    halt 403 unless @current_user.id == params[:id].to_i
     @current_user.links.create(JSON.parse(request.body.read))
   end
 
   delete '/api/users/:id/links/:link_id' do
-    halt 403 unless @current_user.id == params[:id]
+    halt 403 unless @current_user.id == params[:id].to_i
     link = @current_user.links.get(params[:link_id])
     link.destroy
   end
