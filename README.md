@@ -1,5 +1,5 @@
 # Skinnnn
-A minimal about me application. [View on heroku](http://vast-reaches-2424.herokuapp.com/).
+A minimal about me application. [View on heroku](http://skinnnn.herokuapp.com/).
 
 ## Stuff to be done:
 
