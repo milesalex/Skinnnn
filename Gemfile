@@ -11,7 +11,6 @@ gem "sinatra"
 gem "json"
 gem "slim"
 gem "sass"
-gem 'pg'
 
 group :development do
   gem 'dm-sqlite-adapter'
