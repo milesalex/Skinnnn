@@ -10,7 +10,7 @@
           li
             a.editable data-id="#{link.id}" target="_blank" href=link.url #{link.name}
 
-      - if @current_user
+      - if @current_user == user
         ul.new-link-form
           li
             input.name.input placeholder="Name"
