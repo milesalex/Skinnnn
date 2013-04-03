@@ -13,10 +13,11 @@ gem "slim"
 gem "sass"
 
 group :development do
-  gem 'dm-sqlite-adapter'
+  gem "thor"
+  gem "dm-sqlite-adapter"
   gem "pry"
 end
 
 group :production do
-  gem 'dm-postgres-adapter'
+  gem "dm-postgres-adapter"
 end
