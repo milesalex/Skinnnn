@@ -10,10 +10,10 @@ html
     link href="/stylesheets/styles.css" rel="stylesheet" type="text/css"
     script src="/libs/jquery.js" type="text/javascript"
   - if @current_user
-    body.logged-in spellcheck="false" data-current-user="#{@current_user.id}"
+    body spellcheck="false" data-current-user="#{@current_user.id}"
       == yield
   - else
-    body
+    body data-current-user="null"
       == yield
 
   script src="/libs/underscore.js" type="text/javascript"
