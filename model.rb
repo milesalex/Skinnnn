@@ -1,5 +1,14 @@
 DataMapper.setup(:default, (ENV["DATABASE_URL"] || "sqlite3://#{Dir.pwd}/database.db"))
 
+class CoverUploader < CarrierWave::Uploader::Base
+  include CarrierWave::MiniMagick
+  storage :fog
+
+  def extension_white_list
+    %w(jpg jpeg gif png)
+  end
+end
+
 class User
   include DataMapper::Resource
   property :id,         Serial
@@ -10,6 +19,8 @@ class User
   property :bio,        String
   property :city,       String
   property :created_at, DateTime
+
+  mount_uploader :cover, CoverUploader
 
   has n, :links, :constraint => :destroy
 end
