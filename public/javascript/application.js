@@ -65,31 +65,61 @@ $(function(){
     },
 
     initialize: function(){
-      _.bindAll(this, 'render', 'makeEditable', 'addLink', 'appendLink');
+      _.bindAll(this, 'render', 'addLink', 'appendLink', 'getUserLinks');
+      // Is user logged in?
+      if (this.isUserLoggedIn() === true) {
+        if (this.isUserOnCorrectProfile() === true) {
+          console.log('Logged in: YES | On correct profile: YES');
+          this.render();
+        } else {
+          console.log('Logged in: YES | On correct profile: NO');
+        }
+      } else {
+        console.log('Logged in: NO | On correct profile: NO');
+        console.log('kill js');
+      }
+    },
+
+    render: function(){
+      var self = this;
       var user_id = $('body').data('current-user');
       this.user = new UserModel({id: user_id});
       this.collection = this.user.links;
       this.collection.bind('add', this.appendLink);
       this.collection.fetch();
-      this.render();
-    },
-
-    render: function(){
-      var self = this;
-      this.makeEditable();
       _(this.collection.models).each(function(link){
         self.appendLink(link);
       }, this);
     },
 
-    makeEditable: function(){
+    isUserLoggedIn: function(){
+      var currentUser = $('body').data('current-user'); // Get current user id
+      if ( currentUser !== null ){
+        return true;
+      } else {
+        return false;
+      }
+    },
+
+    isUserOnCorrectProfile: function(){
       var currentUser = $('body').data('current-user'); // Get current user id
       var currentProfile = $('.content').data('current-profile'); // the id of the users profile that is in view
-      if ( currentUser === currentProfile ){
-        $('h1.name').attr( 'contenteditable', 'true');
-        $('p.description').attr( 'contenteditable', 'true' );
-        $('ul.links').empty();
+      if (currentUser === currentProfile){
+        return true;
+      } else {
+        return false;
       }
+    },
+
+    makeEditable: function(){
+      $('h1.name').attr( 'contenteditable', 'true');
+      $('p.description').attr( 'contenteditable', 'true' );
+      $('ul.links').empty();
+    },
+
+    getUserLinks: function(){
+       // get user
+
     },
 
     saveOnBlur: function(elm){
