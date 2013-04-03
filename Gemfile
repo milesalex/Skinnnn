@@ -12,6 +12,12 @@ gem "json"
 gem "slim"
 gem "sass"
 
+# S3 for image hosting
+gem "fog", "~> 1.3.1"
+gem "carrierwave"
+gem "mini_magick"
+gem "carrierwave-datamapper"
+
 group :development do
   gem "thor"
   gem "dm-sqlite-adapter"
