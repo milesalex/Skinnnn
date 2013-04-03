@@ -27,6 +27,12 @@ class Api < Sinatra::Base
     @current_user.update(JSON.parse(request.body.read))
   end
 
+  post '/api/users/:id/cover' do
+    halt 403 unless @current_user.id == params[:id].to_i
+    @current_user.cover = params['cover_image'][:tempfile].read
+    @current_user.save
+  end
+
   # LINKS
   get '/api/users/:id/links' do
     halt 403 unless @current_user.id == params[:id].to_i
