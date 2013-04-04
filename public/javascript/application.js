@@ -113,9 +113,11 @@ $(function(){
     },
 
     makeEditable: function(){
+      var currentUser = $('body').data('current-user'); // Get current user id
       $('h1.name').attr( 'contenteditable', 'true');
       $('p.description').attr( 'contenteditable', 'true' );
       $('ul.links').empty();
+      $("div.cover").dropzone({ url: "/api/users/" + currentUser + "/cover" });
     },
 
     getUserLinks: function(){
