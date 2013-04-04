@@ -29,7 +29,7 @@ class Api < Sinatra::Base
 
   post '/api/users/:id/cover' do
     halt 403 unless @current_user.id == params[:id].to_i
-    @current_user.cover = params['cover_image'][:tempfile].read
+    @current_user.cover = params['file']
     @current_user.save
   end
 
