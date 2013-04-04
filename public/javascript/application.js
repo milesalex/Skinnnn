@@ -90,6 +90,7 @@ $(function(){
       _(this.collection.models).each(function(link){
         self.appendLink(link);
       }, this);
+      this.makeEditable();
     },
 
     isUserLoggedIn: function(){
