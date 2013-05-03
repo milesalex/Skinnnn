@@ -7,6 +7,10 @@ class CoverUploader < CarrierWave::Uploader::Base
   def extension_white_list
     %w(jpg jpeg gif png)
   end
+
+  def default_url
+    "http://28.media.tumblr.com/tumblr_lm31jppmgS1qa48wxo1_500.gif"
+  end
 end
 
 class User
