@@ -1,5 +1,10 @@
 $break: 500px
 
+@mixin clear-fix
+  content: ""
+  display: table
+  clear: both
+
 html, body
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif
   font-weight: 300
@@ -63,24 +68,30 @@ ul, li
       color: #fff
       font-size: 12px
 
-h1.name
-  font-size: 34px
-  margin: 0
-  margin-bottom: 0px
-  letter-spacing: -1px
+.name-wrap
+  h1.name
+    font-size: 34px
+    margin: 0
+    margin-bottom: 0px
+    margin-right: 5px
+    letter-spacing: -1px
+    display: inline-block
 
-p.description
-  font-family: "EB Garamond", serif
-  font-size: 26px
-  color: #808080
-  margin: 0
-  margin-bottom: 50px
-  font-weight: 300
-  max-width: 450px
-  resize: none
+.desc-wrap
+  p.description
+    display: inline-block
+    margin-right: 5px
+    font-family: "EB Garamond", serif
+    font-size: 26px
+    color: #808080
+    margin: 0
+    margin-bottom: 50px
+    font-weight: 300
+    max-width: 450px
+    resize: none
 
-h1.name, p.description, div.links
-  border-radius: 3px
+input.h1-name, input.p-description, .edit-bio
+  display: none
 
 .new-link-form
   li
