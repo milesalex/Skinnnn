@@ -1,10 +1,15 @@
 .cover.editable style="background-image: url('#{user.cover_url}')"
 .content data-current-profile="#{user.id}"
   .content-wrap
-    h1.name.editable data-attr="name" #{user.name}
-    p.description.editable data-attr="bio" #{user.bio}
-    input.hidden
-    div.link-collection
+    .name-wrap
+      h1.name data-attr="name" #{user.name}
+      input.h1-name data-attr="name"
+      button.h1-name.edit-bio data-attr="name" Edit
+    .desc-wrap
+      p.description data-attr="bio" #{user.bio}
+      input.p-description data-attr="bio"
+      button.p-description.edit-bio data-attr="bio" Edit
+    .link-collection
       ul.links
         - user.links.each do |link|
           li
