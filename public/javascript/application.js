@@ -58,10 +58,8 @@ $(function(){
     el: $('body'),
 
     events: {
-      'blur h1.name' : 'saveOnBlur',
-      'blur p.description' : 'saveOnBlur',
-      'focus .editable' : 'focused',
-      'click button.add' : 'addLink'
+      'click button.add' : 'addLink',
+      'click button.edit-bio' : 'editBio'
     },
 
     initialize: function(){
@@ -114,75 +112,66 @@ $(function(){
 
     makeEditable: function(){
       var currentUser = $('body').data('current-user'); // Get current user id
-      $('h1.name').attr( 'contenteditable', 'true');
-      $('p.description').attr( 'contenteditable', 'true' );
+      $('button.edit-bio').show();
       $('ul.links').empty();
       $("div.cover").dropzone({ url: "/api/users/" + currentUser + "/cover" });
     },
 
-    getUserLinks: function(){
-       // get user
+    editMode: false,
 
+    editBio: function(elm){
+      var button = elm.currentTarget;
+      var input = $(button).prev();
+      var element = $(button).prev().prev();
+      var attr = $(button).data('attr');
+
+      var user_id = $('body').data('current-user');
+      var user = new UserModel({id: user_id});
+
+      if (this.editMode === false) {
+        var oldName = $(element).text();
+        $(element).hide();
+        $(button).text('Save');
+        $(input).val(oldName).show();
+        this.editMode = true;
+        console.log('edit mode == true');
+      } else {
+        var newValue = $(input).val();
+        $(input).hide();
+        $(element).text(newValue).show();
+        $(button).text('Edit');
+
+        var obj = {};
+        obj[attr] = newValue;
+        user.save( obj, {
+          success: function (user) {
+            alert(user.toJSON());
+          }
+        });
+        this.editMode = false;
+        console.log('edit mode == false');
+      }
     },
 
-    saveOnBlur: function(elm){
-      $('.editable').removeClass('faded');
-      $('.editable').removeClass('active');
-      var user_id = $('body').data('current-user');
-      var attr = $(elm.currentTarget).data('attr');
-      var value = $(elm.currentTarget).text();
-      var user = new UserModel({id: user_id});
-      var arr = {};
-      if (attr == 'name') {
-        arr = { name: value };
-      } else if (attr == 'bio') {
-        arr = { bio: value };
-      }
-      user.save( arr, {
-        success: function (user) {
-          alert(user.toJSON());
-        }
-      });
+    getUserLinks: function(){
+       // get user
     },
 
     addLink: function(){
-
       var linkName = $('.new-link-form .name').val();
       var linkURL = $('.new-link-form .url').val();
       var link = new LinkModel();
-
       this.collection.create({
         name: linkName,
         url: linkURL
       });
-
     },
 
     appendLink: function(link){
       var linkView = new LinkView({
         model: link
       });
-
       $('.links', this.el).append(linkView.render().el);
-    },
-
-    focused: function(elm){
-      $(elm.currentTarget).addClass('active');
-      $('.editable').addClass('faded');
-    },
-
-    sanitizeOnPaste: function(elm){
-    /* Sanitize text after user pastes rich html
-       ----
-       Catch any input event and pipe the text through
-       a hidden text area. This strips all formatting.
-       After formatting is stripped, place the text
-       into the original div. */
-
-      $('.hidden').val(elm.currentTarget.innerText);
-      console.log(elm);
-      var strip = $('.hidden').val();
-      $('.description').text(strip);
     }
 
   });
