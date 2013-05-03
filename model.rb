@@ -9,7 +9,7 @@ class CoverUploader < CarrierWave::Uploader::Base
   end
 
   def default_url
-    "http://28.media.tumblr.com/tumblr_lm31jppmgS1qa48wxo1_500.gif"
+    "http://art.yale.edu/image_columns/0001/3987/tumblr_m7kaxdluz31rbivvmo1_400.gif"
   end
 end
 
