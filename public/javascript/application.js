@@ -154,7 +154,7 @@ $(function(){
     },
 
     getUserLinks: function(){
-       // get user
+      // get user
     },
 
     addLink: function(){
